@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt HUMAIN — Serge IA Hustle</title>
+<meta name="description" content="Le prompt qui rend tes textes IA totalement humains. Copie-le dans ChatGPT ou Claude.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href=".."><span class="dot"></span> Serge IA Hustle</a>
+</header>
+
+<main class="wrap">
+  <a class="back" href="..">&larr; Toutes les ressources</a>
+  <div class="eyebrow"><span class="badge">HUMAIN</span> Ressource gratuite</div>
+  <h1>Ton prompt <span class="mark">HUMAIN</span></h1>
+  <p class="lede">Le prompt qui efface les traces d'IA dans tes textes. Tu le colles avant ton texte, et <strong>ça ressort comme si un humain l'avait écrit.</strong></p>
+
+  <ol class="steps">
+    <li><span class="num">1</span><span>Appuie sur <b>Copier le prompt</b> juste en dessous.</span></li>
+    <li><span class="num">2</span><span>Colle-le dans <b>ChatGPT</b> ou <b>Claude</b>, puis mets ton texte tout à la fin, là où c'est indiqué.</span></li>
+    <li><span class="num">3</span><span>Envoie. Ton texte ressort naturel, et <b>on ne devine plus que c'est une IA.</b></span></li>
+  </ol>
+
+  <div class="promptbox">
+    <div class="bar">
+      <span class="label">Prompt HUMAIN</span>
+      <button class="copy" id="copyBtn" type="button">Copier le prompt</button>
+    </div>
+    <pre id="promptText">Tu es un correcteur francophone spécialisé dans les textes qui sonnent 100% humains.
+Je vais te donner un texte. Réécris-le pour qu'aucun lecteur ne puisse deviner
+qu'une intelligence artificielle est passée dessus. Tu gardes exactement le même
+sens, la même langue et à peu près la même longueur.
+
+Voici tes règles :
+
+1. Enlève les mots et les tics typiques de l'IA : "riche", "incontournable",
+   "véritable", "un allié de taille", "plonger au cœur de", "dans un monde où",
+   "il est important de noter", "force est de constater", "en somme", "par ailleurs"
+   et "en effet" répétés à chaque phrase.
+2. Supprime tous les tirets longs. Remplace-les par une virgule, un point ou
+   une parenthèse.
+3. Arrête les énumérations de trois automatiques du genre "simple, rapide et
+   efficace". Dis les choses normalement.
+4. Ne gonfle pas l'importance. Enlève "marque un tournant", "joue un rôle clé",
+   "témoigne de".
+5. Écris comme on parle vraiment. Alterne des phrases courtes et des phrases plus
+   longues, jamais toutes de la même taille.
+6. Utilise des tournures simples comme "c'est" et "il y a" au lieu de formules
+   compliquées.
+7. Quand c'est naturel, laisse passer un avis, une émotion, une prise de position.
+   Un humain n'est jamais totalement neutre.
+8. N'ajoute aucun emoji, ne mets pas des mots en gras partout, et utilise des
+   guillemets droits.
+9. Ne me fais aucun commentaire, ne te présente pas, n'écris pas "Voici" ni
+   "J'espère que ça aide". Tu me renvoies seulement le texte réécrit, rien d'autre.
+
+Voici mon texte à réécrire :
+
+[COLLE TON TEXTE ICI]</pre>
+  </div>
+
+  <div class="foot">
+    <p>Ce prompt t'a aidé ? Chaque semaine, les meilleurs outils IA pour vendre plus et bosser plus vite.</p>
+    <a class="follow" href="https://www.instagram.com/sergeiahustle/" target="_blank" rel="noopener">Suivre Serge IA Hustle</a>
+  </div>
+</main>
+
+<div class="toast" id="toast">Prompt copié</div>
+<script>
+(function () {
+  var btn = document.getElementById('copyBtn');
+  var pre = document.getElementById('promptText');
+  var toast = document.getElementById('toast');
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = pre.textContent;
+    var done = function () {
+      btn.textContent = 'Copié';
+      btn.classList.add('done');
+      toast.classList.add('show');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = 'Copier le prompt';
+        btn.classList.remove('done');
+        toast.classList.remove('show');
+      }, 2200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+    } else { fallback(text, done); }
+  });
+  function fallback(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+</html>
