@@ -76,6 +76,11 @@ a { color: inherit; }
 }
 .back:hover { color: var(--text); }
 
+/* Hero centré (accueil uniquement) */
+.hero { text-align: center; }
+.hero .eyebrow { margin-bottom: 20px; }
+.hero .lede { max-width: 42ch; margin-left: auto; margin-right: auto; }
+
 /* Eyebrow + titles */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 9px;
