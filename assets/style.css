@@ -1,4 +1,4 @@
-/* Serge IA Hustle — feuille de style partagée (accueil + sous-pages ressources) */
+/* Serge IA Hustle - feuille de style partagée (accueil + sous-pages ressources) */
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600;700&display=swap');
 
 :root {
@@ -59,15 +59,17 @@ a { color: inherit; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 22px 20px 68px; }
 
 /* Header */
-.site-header { max-width: var(--maxw); margin: 0 auto; padding: 24px 20px 0; }
+.site-header { max-width: var(--maxw); margin: 0 auto; padding: 24px 20px 0; text-align: center; }
 .brand {
-  display: inline-flex; align-items: center; gap: 10px;
-  text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 16px;
+  display: inline-flex; align-items: center; gap: 11px;
+  text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 17px;
   letter-spacing: -.01em;
 }
 .brand .dot {
-  width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), 0 0 14px 1px color-mix(in srgb, var(--accent) 55%, transparent);
+  width: 34px; height: 34px; border-radius: 50%; flex: 0 0 auto;
+  background: #242426 center/cover no-repeat; background-image: url(avatar.jpg);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent), 0 0 15px 1px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 .back {
   display: inline-flex; align-items: center; gap: 7px;
@@ -209,7 +211,7 @@ pre {
   font-size: 13px; line-height: 1.65; color: var(--text); white-space: pre; tab-size: 2;
 }
 
-/* Footer — communauté + réseaux */
+/* Footer - communauté + réseaux */
 .foot {
   margin-top: 8px; border-top: 1px solid var(--border); padding-top: 34px; text-align: center;
 }
