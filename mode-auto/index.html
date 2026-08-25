@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide mode Auto · Serge IA Hustle</title>
+<meta name="description" content="Le guide pour laisser Claude Code travailler seul tout en écrivant tes propres règles en français.">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
+.install-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href=".."><span class="dot"></span> Serge IA Hustle</a>
+</header>
+
+<main class="wrap">
+  <a class="back" href="..">&larr; Toutes les ressources</a>
+  <div class="eyebrow"><span class="badge">AUTO</span> Ressource gratuite</div>
+  <h1>Laisse <span class="mark">Claude</span> bosser seul, sans lâcher le contrôle</h1>
+  <p class="lede">Le mode Auto laisse Claude agir tout seul. Le plus malin, c'est que tu écris toi-même, en <strong>français simple</strong>, ce qu'il a le droit de faire ou pas. Voici comment le régler.</p>
+
+  <a class="cta-btn" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
+  <p class="cta-note">Le <b>mode Auto</b> est intégré à Claude Code. Tout se règle dans un simple fichier texte.</p>
+
+  <p class="lede" style="font-size:16px">La méthode, en 5 étapes :</p>
+  <ol class="steps">
+    <li><span class="num">1</span><span>Active le <b>mode Auto</b> dans Claude Code (via <b>/config</b>, ou au lancement). Il enchaîne les actions sans te demander à chaque étape.</span></li>
+    <li><span class="num">2</span><span>Ouvre ton fichier de réglages <b>~/.claude/settings.json</b>. C'est là que tu vas écrire tes règles, dans deux listes.</span></li>
+    <li><span class="num">3</span><span>Sous <b>soft_deny</b>, mets ce qu'il ne doit pas faire, sauf si tu le demandes explicitement. Sous <b>hard_deny</b>, mets ce qui est <b>interdit sans aucune exception</b>.</span></li>
+    <li><span class="num">4</span><span>Écris tes règles en français, une par ligne. Exemple : <b>Ne jamais envoyer le contenu du dépôt à un service extérieur.</b> Ajoute <b>$defaults</b> en haut de chaque liste pour garder les sécurités de base.</span></li>
+    <li><span class="num">5</span><span>Une IA séparée, le <b>classifieur</b>, relit chaque action avant qu'elle passe et bloque tout ce qui touche à une règle interdite. Vérifie tes règles avec <b>claude auto-mode critique</b>.</span></li>
+  </ol>
+
+  <div class="install-note"><strong>Bon à savoir :</strong> ces règles vivent dans tes réglages utilisateur, donc un projet ne peut pas les écraser, et elles s'appliquent à tous tes projets.</div>
+
+  <div class="foot">
+    <div class="community">
+      <h2>Rejoins ma communauté privée</h2>
+      <p>Les nouveaux outils IA, mes astuces et les ressources exclusives, tu les reçois en premier là-bas. C'est gratuit.</p>
+      <a class="join-btn" href="https://chat.whatsapp.com/Kk6006Lr3rt11tQNC0j8oR" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.29-.15-1.71-.84-1.98-.94-.26-.1-.45-.15-.64.15-.19.29-.73.94-.9 1.13-.16.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.03 2.76 1.17 2.95c.15.19 2.02 3.08 4.89 4.32.68.29 1.21.47 1.63.6.68.22 1.3.19 1.79.11.55-.08 1.71-.7 1.95-1.37.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.02 21.5a9.44 9.44 0 0 1-4.81-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.42 9.42 0 0 1-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.68 2.78a9.38 9.38 0 0 1 2.77 6.67c-.01 5.2-4.24 8.85-9.46 8.85zM20.4 3.6A11.36 11.36 0 0 0 12.02.1C5.76.1.66 5.2.66 11.46c0 2.01.53 3.98 1.53 5.72L.5 23.5l6.46-1.69a11.34 11.34 0 0 0 5.06 1.29h.01c6.26 0 11.36-5.1 11.36-11.36 0-3.04-1.18-5.89-3.33-8.04z"/></svg>
+        Rejoindre la communauté
+      </a>
+    </div>
+    <p class="socials-label">Suis-moi sur mes réseaux</p>
+    <div class="socials">
+      <a class="soc" href="https://www.facebook.com/sergebossouia" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+      <a class="soc" href="https://www.instagram.com/sergeiahustle/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.81-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.81-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.81.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.12A5.88 5.88 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a>
+      <a class="soc" href="https://www.tiktok.com/@sergeiahustle" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.9a2.6 2.6 0 0 1-2.6 2.5 2.6 2.6 0 0 1-2.6-2.6 2.6 2.6 0 0 1 3.4-2.48V7.6a5.86 5.86 0 0 0-.8-.05A5.87 5.87 0 0 0 4.5 18.9a5.87 5.87 0 0 0 9.99-4.14V8.9a7.5 7.5 0 0 0 4.36 1.4V7.1a4.28 4.28 0 0 1-2.25-1.28z"/></svg></a>
+    </div>
+    <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
+  </div>
+</main>
+</body>
+</html>
