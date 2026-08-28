@@ -4,11 +4,127 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guide mode Auto · Serge IA Hustle</title>
-<meta name="description" content="Le guide pour laisser Claude Code travailler seul tout en écrivant tes propres règles en français.">
+<meta name="description" content="Cadrer le mode Auto de Claude Code pour qu'il travaille seul sans jamais deraper, avec un vrai settings.json a copier.">
 <link rel="stylesheet" href="../assets/style.css">
 <style>
+.sec{margin:44px 0 0}
+.sec .kick{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2{font-family:var(--display);font-size:clamp(23px,6vw,31px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:0}
+.p{color:var(--muted);font-size:16.5px;line-height:1.64;margin:14px 0}
+.p b,.p strong{color:var(--text);font-weight:600}
+.cap{color:var(--muted);font-size:13.5px;text-align:center;margin:10px 0 0;opacity:.9}
+
+/* terminal window */
+.term{background:#0a0d14;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);margin:18px 0}
+.term .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#11151e;border-bottom:1px solid var(--border)}
+.term .tbar i{width:11px;height:11px;border-radius:50%;display:block}
+.term .tbar .r{background:#ff5f56}.term .tbar .y{background:#ffbd2e}.term .tbar .g{background:#27c93f}
+.term .tbar .name{margin-left:8px;font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.term pre{padding:16px;font-size:13px;line-height:1.75;color:#e8e8ea;background:transparent}
+.term .u{color:var(--accent)}
+.term .c{color:#7ee787}
+.term .o{color:#9c988f}
+.term .hl{color:#f5f2e9}
+
+/* artboard canvas mock */
+.canvas{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0 0}
+.board{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;box-shadow:var(--shadow-sm);aspect-ratio:9/15;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.board.pick{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent),var(--shadow-sm)}
+.board .tag{position:absolute;top:7px;left:7px;font-size:8.5px;font-weight:800;letter-spacing:.06em;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+.board.pick .tag{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.board .bl{background:var(--surface-3);border-radius:5px;flex:0 0 auto}
+.board .b-hero{height:30%;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 40%,var(--surface-3)),var(--surface-3));margin-top:16px}
+.board .b-t{height:9px;width:78%}
+.board .b-t.s{width:56%}
+.board .b-btn{height:16px;width:64%;background:var(--accent);border-radius:6px;margin-top:auto}
+.board.pick .b-btn{background:var(--accent)}
+
+/* before / after */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
+.col{border:1px solid var(--border);border-radius:14px;padding:16px 16px 18px;background:var(--surface)}
+.col.bad{background:color-mix(in srgb,#ff5f56 6%,var(--surface))}
+.col.good{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+.col h4{font-family:var(--display);font-size:14px;font-weight:800;letter-spacing:.02em;margin:0 0 12px;text-transform:uppercase}
+.col.bad h4{color:#ff8079}.col.good h4{color:var(--accent)}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.col li{font-size:14.5px;line-height:1.45;color:var(--muted);padding-left:22px;position:relative}
+.col li::before{position:absolute;left:0;top:0;font-weight:800}
+.col.bad li::before{content:"✕";color:#ff8079}
+.col.good li::before{content:"✓";color:var(--accent)}
+.col.good li{color:var(--text)}
+
+/* flow walkthrough */
+.flow{display:flex;flex-direction:column;gap:12px;margin:20px 0 0;position:relative}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow-sm)}
+.fstep .msg{display:flex;gap:11px;align-items:flex-start}
+.fstep .who{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--surface-2);border:1px solid var(--border);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;display:grid;place-items:center}
+.fstep .txt{font-size:15px;line-height:1.5;color:var(--text);padding-top:3px}
+.fstep .txt em{color:var(--muted);font-style:normal}
+.fstep .out{margin:11px 0 0 41px;font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.fstep .out b{color:var(--accent);font-weight:800;flex:0 0 auto}
+
+/* tips */
+.tips{display:flex;flex-direction:column;gap:13px;margin:20px 0 0;padding:0;list-style:none}
+.tips li{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5;color:var(--muted)}
+.tips li b{color:var(--text);font-weight:600}
+
+/* callout / teaser */
+.callout{margin:22px 0 0;padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15.5px;line-height:1.55}
+.callout b{color:var(--text)}
 .install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
-.install-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* centrage des titres */
+.lead{text-align:center}
+.lead .eyebrow{margin-left:auto;margin-right:auto}
+.lead .lede{max-width:47ch;margin-left:auto;margin-right:auto}
+.sec>.kick,.sec>h2{text-align:center}
+
+/* sommaire */
+.toc{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:18px 20px;margin:6px 0 8px;box-shadow:var(--shadow-sm)}
+.toc .tt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t;display:flex;flex-direction:column;gap:9px}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:11px;align-items:baseline;text-decoration:none;color:var(--text);font-size:15.5px;line-height:1.35}
+.toc a::before{content:counter(t);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;flex:0 0 auto}
+.toc a:hover{color:var(--accent)}
+
+/* fenetre navigateur (capture reelle) */
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin:18px 0 0;background:var(--surface)}
+.frame .fbar{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.frame .fbar i{width:10px;height:10px;border-radius:50%;display:block}
+.frame .fbar .r{background:#ff5f56}.frame .fbar .y{background:#ffbd2e}.frame .fbar .g{background:#27c93f}
+.frame .fbar .url{margin-left:8px;flex:1;min-width:0;background:var(--ground);border:1px solid var(--border);border-radius:7px;font-size:11.5px;color:var(--muted);padding:5px 11px;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto}
+
+/* bande gain de temps */
+.roi{display:flex;align-items:stretch;gap:0;margin:16px 0 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.roi .cell{flex:1;padding:16px 14px;text-align:center;background:var(--surface)}
+.roi .cell.after{background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.roi .cell .big{font-family:var(--display);font-weight:800;font-size:clamp(22px,6vw,30px);line-height:1;letter-spacing:-.02em;display:block}
+.roi .cell.after .big{color:var(--accent)}
+.roi .cell .lab{font-size:12px;color:var(--muted);margin-top:6px;display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.roi .arrow{flex:0 0 auto;display:grid;place-items:center;padding:0 4px;color:var(--accent);font-size:20px;background:var(--surface)}
+@media (max-width:520px){.compare{grid-template-columns:1fr}}
+
+.tblwrap{overflow-x:auto;margin:18px 0 0}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;border:1px solid var(--border);border-radius:12px;overflow:hidden;min-width:520px}
+.tbl th,.tbl td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45}
+.tbl th{background:var(--surface-2);font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tbl td b,.tbl td .m{color:var(--text);font-weight:600}
+.tbl td .m{color:var(--accent);font-weight:700}
+.tbl tr:last-child td{border-bottom:0}
+.out{margin:16px 0 0;padding:15px 17px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--border));border-radius:12px;background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+.out .ol{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}
+.out ul{margin:0;padding-left:18px}.out li{color:var(--text);font-size:14.5px;margin:5px 0;line-height:1.45}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0 0;box-shadow:var(--shadow-sm)}
+.split .code{background:#0a0d14;padding:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;line-height:1.7;color:#9c988f}
+.split .code .c{color:#7ee787}.split .code .t{color:#e8e8ea}
+.split .prev{background:var(--surface-2);padding:16px 14px;display:flex;flex-direction:column;gap:9px;align-items:center;justify-content:center}
+.split .prev .bar{height:8px;border-radius:4px;background:var(--surface-3);width:70%}
+.split .prev .bar.s{width:48%}
+.split .prev .btn{margin-top:4px;padding:8px 16px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:800;font-size:12px;position:relative}
+.split .prev .btn.sel{outline:2px dashed var(--accent);outline-offset:3px}
+@media (max-width:520px){.split{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -18,23 +134,64 @@
 
 <main class="wrap">
   <a class="back" href="..">&larr; Toutes les ressources</a>
-  <div class="eyebrow"><span class="badge">AUTO</span> Ressource gratuite</div>
-  <h1>Laisse <span class="mark">Claude</span> bosser seul, sans lâcher le contrôle</h1>
-  <p class="lede">Le mode Auto laisse Claude agir tout seul. Le plus malin, c'est que tu écris toi-même, en <strong>français simple</strong>, ce qu'il a le droit de faire ou pas. Voici comment le régler.</p>
+  <div class="lead">
+    <div class="eyebrow"><span class="badge">AUTO</span> Ressource gratuite</div>
+    <h1>Laisse Claude bosser seul, sans te faire avoir</h1>
+    <p class="lede">Le mode Auto laisse Claude enchaîner les actions tout seul, sans te demander à chaque étape. Le vrai pouvoir, c'est que tu écris toi-même, en français, ce qu'il a le droit de faire ou pas. Voici comment le cadrer pour qu'il aille vite sans jamais déraper.</p>
+  </div>
 
-  <a class="cta-btn" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
-  <p class="cta-note">Le <b>mode Auto</b> est intégré à Claude Code. Tout se règle dans un simple fichier texte.</p>
+  <nav class="toc">
+    <p class="tt">Dans ce guide</p>
+    <ol><li><a href="#concept">Auto n'est pas « fais ce que tu veux »</a></li><li><a href="#valeur">Vitesse et contrôle en même temps</a></li><li><a href="#methode">Le cadrer, étape par étape</a></li><li><a href="#regles">Quoi mettre où</a></li><li><a href="#erreurs">Les erreurs à éviter</a></li></ol>
+  </nav>
 
-  <p class="lede" style="font-size:16px">La méthode, en 5 étapes :</p>
-  <ol class="steps">
-    <li><span class="num">1</span><span>Active le <b>mode Auto</b> dans Claude Code (via <b>/config</b>, ou au lancement). Il enchaîne les actions sans te demander à chaque étape.</span></li>
-    <li><span class="num">2</span><span>Ouvre ton fichier de réglages <b>~/.claude/settings.json</b>. C'est là que tu vas écrire tes règles, dans deux listes.</span></li>
-    <li><span class="num">3</span><span>Sous <b>soft_deny</b>, mets ce qu'il ne doit pas faire, sauf si tu le demandes explicitement. Sous <b>hard_deny</b>, mets ce qui est <b>interdit sans aucune exception</b>.</span></li>
-    <li><span class="num">4</span><span>Écris tes règles en français, une par ligne. Exemple : <b>Ne jamais envoyer le contenu du dépôt à un service extérieur.</b> Ajoute <b>$defaults</b> en haut de chaque liste pour garder les sécurités de base.</span></li>
-    <li><span class="num">5</span><span>Une IA séparée, le <b>classifieur</b>, relit chaque action avant qu'elle passe et bloque tout ce qui touche à une règle interdite. Vérifie tes règles avec <b>claude auto-mode critique</b>.</span></li>
-  </ol>
+  <section class="sec" id="concept">
+    <p class="kick">Le concept</p>
+    <h2>Auto, ce n'est pas « fais ce que tu veux »</h2>
+    <p class="p">Depuis peu, le mode Auto est le mode par défaut de Claude Code. Il enchaîne les actions tout seul, sans te demander à chaque étape. Mais ce n'est pas du n'importe quoi.</p>    <p class="p">Un deuxième modèle, le <b>classifieur</b>, relit chaque action avant qu'elle passe. Il bloque tout ce qui dépasse ta demande, tout ce qui touche à un service qu'il ne reconnaît pas comme le tien, et tout ce qui sent le piège (un texte malveillant qui essaie de lui faire faire des bêtises). Tu gardes la vitesse, sans le risque.</p>
+  </section>
+  <section class="sec" id="valeur">
+    <p class="kick">Pourquoi ça change tout</p>
+    <h2>Le bon réglage entre vitesse et contrôle</h2>
+    <div class="roi"><div class="cell"><span class="big">clic × 100</span><span class="lab">à valider chaque étape</span></div><div class="arrow">&rarr;</div><div class="cell after"><span class="big">0 clic</span><span class="lab">dans TES limites</span></div></div>    <div class="compare"><div class="col bad"><h4>Avant, sans cadre</h4><ul><li>Tu valides chaque commande, Entrée, Entrée, Entrée, tu perds un temps fou</li><li>Ou tu coupes toutes les sécurités pour aller vite</li><li>Et un jour, il touche un truc que tu ne voulais pas</li></ul></div><div class="col good"><h4>Après, cadré</h4><ul><li>Il bosse en autonomie, sans t'interrompre</li><li>Dans des limites que TU as écrites en français</li><li>Le dangereux reste bloqué, quoi qu'il arrive</li></ul></div></div>
+  </section>
+  <section class="sec" id="methode">
+    <p class="kick">La méthode</p>
+    <h2>Le cadrer, étape par étape</h2>
+    <p class="p"><b>1.</b> Vérifie ton mode. Il est déjà sur Auto par défaut, sinon tu le changes dans <b>/config</b>.</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
+<pre><span class="u">$</span> <span class="c">claude</span>
+<span class="o">Mode de permission : Auto</span>
+<span class="o">Le classifieur relit chaque action avant qu'elle passe.</span></pre></div>    <p class="p"><b>2.</b> Ouvre ton fichier de réglages. C'est là que tu écris tes propres règles.</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
+<pre><span class="u">$</span> <span class="c">code ~/.claude/settings.json</span></pre></div>    <p class="p"><b>3.</b> Écris tes règles en français, dans deux listes. <b>deny</b> = interdit, aucune exception. <b>ask</b> = il te demande d'abord. Tout le reste, il le fait seul.</p>    <div class="promptbox"><div class="bar"><span class="label">À coller dans settings.json</span><button class="copy" type="button">Copier</button></div>
+<pre>{
+  "permissions": {
+    "deny": [
+      "Ne jamais envoyer le contenu du projet a un service exterieur",
+      "Ne jamais supprimer definitivement des fichiers ou des donnees"
+    ],
+    "ask": [
+      "Demander avant de publier ou de mettre un site en ligne",
+      "Demander avant d'installer une nouvelle dependance"
+    ]
+  }
+}</pre></div>    <p class="p"><b>4.</b> C'est tout. Les règles sont lues dans l'ordre, <b>deny</b> d'abord. La première qui correspond gagne, et rien ne peut passer au-dessus d'un deny, ni le classifieur, ni même ta demande.</p>
+  </section>
+  <section class="sec" id="regles">
+    <p class="kick">Le bon réglage</p>
+    <h2>Quoi mettre où</h2>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>Tu écris ça dans...</th><th>Ce que Claude fait</th><th>Exemple</th></tr></thead><tbody><tr><td><b class='m'>deny</b></td><td>Il ne le fait jamais, aucune exception</td><td>Supprimer des données, sortir ton code du projet</td></tr><tr><td><b class='m'>ask</b></td><td>Il te demande avant</td><td>Publier, installer une dépendance, dépenser</td></tr><tr><td><b>rien (le reste)</b></td><td>Il le fait seul, en autonomie</td><td>Lire, écrire, tester, corriger ton code</td></tr></tbody></table></div>
+  </section>
+  <section class="sec" id="erreurs">
+    <p class="kick">Les erreurs à éviter</p>
+    <h2>Ce qui te fait perdre le bénéfice</h2>
+    <ul class="tips"><li><b>Ne mets pas tout en deny.</b> Sinon tu retombes à valider sans arrêt. Réserve deny au vraiment dangereux, ask au sensible.</li><li><b>Écris des règles claires et concrètes.</b> Le classifieur les lit comme des consignes, pas comme du code. Une phrase simple vaut mieux qu'un charabia.</li><li><b>Ne coupe pas les permissions pour aller plus vite.</b> Le mode qui saute toutes les sécurités, c'est exactement là qu'on se fait avoir.</li><li><b>Garde Claude Code à jour.</b> Le classifieur et les réglages évoluent souvent.</li></ul>
+  </section>
 
-  <div class="install-note"><strong>Bon à savoir :</strong> ces règles vivent dans tes réglages utilisateur, donc un projet ne peut pas les écraser, et elles s'appliquent à tous tes projets.</div>
+
+  <a class="cta-btn" style="margin-top:36px" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
+  <p class="cta-note">Ces fonctions vivent dans <b>Claude Code</b>. Garde-le à jour (CLI ou app desktop) pour en profiter.</p>
+
+  <div class="callout"><b>Bientôt sur cette page :</b> mon fichier settings.json complet, prêt à copier, avec toutes mes règles de sécurité. Rejoins la communauté privée en dessous pour le recevoir.</div>
 
   <div class="foot">
     <div class="community">
@@ -54,5 +211,20 @@
     <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
   </div>
 </main>
+
+<div class="toast" id="toast">Copié</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.promptbox').querySelector('pre');
+    var txt = pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.classList.add('done'); btn.textContent = 'Copié';
+      var t = document.getElementById('toast'); t.classList.add('show');
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = 'Copier'; t.classList.remove('show'); }, 1600);
+    });
+  });
+});
+</script>
 </body>
 </html>
