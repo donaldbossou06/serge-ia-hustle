@@ -3,12 +3,128 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guide accès web pour Claude · Serge IA Hustle</title>
-<meta name="description" content="Le guide pour donner à Claude accès à tout internet (LinkedIn, YouTube, Instagram) avec un skill gratuit, pour ta veille et tes leads.">
+<title>Guide veille et prospection web · Serge IA Hustle</title>
+<meta name="description" content="Installer un skill gratuit et open source qui donne a Claude acces a tout internet pour ta veille et ta prospection.">
 <link rel="stylesheet" href="../assets/style.css">
 <style>
+.sec{margin:44px 0 0}
+.sec .kick{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2{font-family:var(--display);font-size:clamp(23px,6vw,31px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:0}
+.p{color:var(--muted);font-size:16.5px;line-height:1.64;margin:14px 0}
+.p b,.p strong{color:var(--text);font-weight:600}
+.cap{color:var(--muted);font-size:13.5px;text-align:center;margin:10px 0 0;opacity:.9}
+
+/* terminal window */
+.term{background:#0a0d14;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);margin:18px 0}
+.term .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#11151e;border-bottom:1px solid var(--border)}
+.term .tbar i{width:11px;height:11px;border-radius:50%;display:block}
+.term .tbar .r{background:#ff5f56}.term .tbar .y{background:#ffbd2e}.term .tbar .g{background:#27c93f}
+.term .tbar .name{margin-left:8px;font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.term pre{padding:16px;font-size:13px;line-height:1.75;color:#e8e8ea;background:transparent}
+.term .u{color:var(--accent)}
+.term .c{color:#7ee787}
+.term .o{color:#9c988f}
+.term .hl{color:#f5f2e9}
+
+/* artboard canvas mock */
+.canvas{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0 0}
+.board{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;box-shadow:var(--shadow-sm);aspect-ratio:9/15;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.board.pick{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent),var(--shadow-sm)}
+.board .tag{position:absolute;top:7px;left:7px;font-size:8.5px;font-weight:800;letter-spacing:.06em;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+.board.pick .tag{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.board .bl{background:var(--surface-3);border-radius:5px;flex:0 0 auto}
+.board .b-hero{height:30%;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 40%,var(--surface-3)),var(--surface-3));margin-top:16px}
+.board .b-t{height:9px;width:78%}
+.board .b-t.s{width:56%}
+.board .b-btn{height:16px;width:64%;background:var(--accent);border-radius:6px;margin-top:auto}
+.board.pick .b-btn{background:var(--accent)}
+
+/* before / after */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
+.col{border:1px solid var(--border);border-radius:14px;padding:16px 16px 18px;background:var(--surface)}
+.col.bad{background:color-mix(in srgb,#ff5f56 6%,var(--surface))}
+.col.good{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+.col h4{font-family:var(--display);font-size:14px;font-weight:800;letter-spacing:.02em;margin:0 0 12px;text-transform:uppercase}
+.col.bad h4{color:#ff8079}.col.good h4{color:var(--accent)}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.col li{font-size:14.5px;line-height:1.45;color:var(--muted);padding-left:22px;position:relative}
+.col li::before{position:absolute;left:0;top:0;font-weight:800}
+.col.bad li::before{content:"✕";color:#ff8079}
+.col.good li::before{content:"✓";color:var(--accent)}
+.col.good li{color:var(--text)}
+
+/* flow walkthrough */
+.flow{display:flex;flex-direction:column;gap:12px;margin:20px 0 0;position:relative}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow-sm)}
+.fstep .msg{display:flex;gap:11px;align-items:flex-start}
+.fstep .who{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--surface-2);border:1px solid var(--border);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;display:grid;place-items:center}
+.fstep .txt{font-size:15px;line-height:1.5;color:var(--text);padding-top:3px}
+.fstep .txt em{color:var(--muted);font-style:normal}
+.fstep .out{margin:11px 0 0 41px;font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.fstep .out b{color:var(--accent);font-weight:800;flex:0 0 auto}
+
+/* tips */
+.tips{display:flex;flex-direction:column;gap:13px;margin:20px 0 0;padding:0;list-style:none}
+.tips li{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5;color:var(--muted)}
+.tips li b{color:var(--text);font-weight:600}
+
+/* callout / teaser */
+.callout{margin:22px 0 0;padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15.5px;line-height:1.55}
+.callout b{color:var(--text)}
 .install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
-.install-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* centrage des titres */
+.lead{text-align:center}
+.lead .eyebrow{margin-left:auto;margin-right:auto}
+.lead .lede{max-width:47ch;margin-left:auto;margin-right:auto}
+.sec>.kick,.sec>h2{text-align:center}
+
+/* sommaire */
+.toc{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:18px 20px;margin:6px 0 8px;box-shadow:var(--shadow-sm)}
+.toc .tt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t;display:flex;flex-direction:column;gap:9px}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:11px;align-items:baseline;text-decoration:none;color:var(--text);font-size:15.5px;line-height:1.35}
+.toc a::before{content:counter(t);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;flex:0 0 auto}
+.toc a:hover{color:var(--accent)}
+
+/* fenetre navigateur (capture reelle) */
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin:18px 0 0;background:var(--surface)}
+.frame .fbar{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.frame .fbar i{width:10px;height:10px;border-radius:50%;display:block}
+.frame .fbar .r{background:#ff5f56}.frame .fbar .y{background:#ffbd2e}.frame .fbar .g{background:#27c93f}
+.frame .fbar .url{margin-left:8px;flex:1;min-width:0;background:var(--ground);border:1px solid var(--border);border-radius:7px;font-size:11.5px;color:var(--muted);padding:5px 11px;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto}
+
+/* bande gain de temps */
+.roi{display:flex;align-items:stretch;gap:0;margin:16px 0 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.roi .cell{flex:1;padding:16px 14px;text-align:center;background:var(--surface)}
+.roi .cell.after{background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.roi .cell .big{font-family:var(--display);font-weight:800;font-size:clamp(22px,6vw,30px);line-height:1;letter-spacing:-.02em;display:block}
+.roi .cell.after .big{color:var(--accent)}
+.roi .cell .lab{font-size:12px;color:var(--muted);margin-top:6px;display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.roi .arrow{flex:0 0 auto;display:grid;place-items:center;padding:0 4px;color:var(--accent);font-size:20px;background:var(--surface)}
+@media (max-width:520px){.compare{grid-template-columns:1fr}}
+
+.tblwrap{overflow-x:auto;margin:18px 0 0}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;border:1px solid var(--border);border-radius:12px;overflow:hidden;min-width:520px}
+.tbl th,.tbl td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45}
+.tbl th{background:var(--surface-2);font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tbl td b,.tbl td .m{color:var(--text);font-weight:600}
+.tbl td .m{color:var(--accent);font-weight:700}
+.tbl tr:last-child td{border-bottom:0}
+.out{margin:16px 0 0;padding:15px 17px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--border));border-radius:12px;background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+.out .ol{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}
+.out ul{margin:0;padding-left:18px}.out li{color:var(--text);font-size:14.5px;margin:5px 0;line-height:1.45}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0 0;box-shadow:var(--shadow-sm)}
+.split .code{background:#0a0d14;padding:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;line-height:1.7;color:#9c988f}
+.split .code .c{color:#7ee787}.split .code .t{color:#e8e8ea}
+.split .prev{background:var(--surface-2);padding:16px 14px;display:flex;flex-direction:column;gap:9px;align-items:center;justify-content:center}
+.split .prev .bar{height:8px;border-radius:4px;background:var(--surface-3);width:70%}
+.split .prev .bar.s{width:48%}
+.split .prev .btn{margin-top:4px;padding:8px 16px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:800;font-size:12px;position:relative}
+.split .prev .btn.sel{outline:2px dashed var(--accent);outline-offset:3px}
+@media (max-width:520px){.split{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -18,24 +134,51 @@
 
 <main class="wrap">
   <a class="back" href="..">&larr; Toutes les ressources</a>
-  <div class="eyebrow"><span class="badge">WEB</span> Ressource gratuite</div>
-  <h1>Donne à <span class="mark">Claude</span> accès à tout internet</h1>
-  <p class="lede">Un skill gratuit et open source permet à Claude d'aller chercher l'info partout, même sur les plateformes fermées comme LinkedIn ou YouTube. Parfait pour ta <strong>veille</strong> et pour <strong>trouver des clients</strong>. Voici comment.</p>
-
-  <a class="cta-btn" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
-  <p class="cta-note">Ce skill s'ajoute à Claude Code. Gratuit, open source, aucune clé à payer.</p>
-
-  <p class="lede" style="font-size:16px">La méthode, en 4 étapes :</p>
-  <ol class="steps">
-    <li><span class="num">1</span><span>Ce skill s'ajoute à <b>Claude Code</b> (l'outil en ligne de commande). Il est <b>gratuit et open source</b>, tu ne paies aucune clé.</span></li>
-    <li><span class="num">2</span><span>Tu l'installes une seule fois, comme les autres compétences de Claude Code (tu déposes le skill, et c'est prêt).</span></li>
-    <li><span class="num">3</span><span>Ensuite, <b>une seule commande</b> dans ton terminal, et Claude peut aller chercher l'info sur presque tout le web, même les plateformes fermées.</span></li>
-    <li><span class="num">4</span><span>Concrètement, tu peux <b>trouver des prospects sur LinkedIn</b>, analyser des vidéos YouTube, ou voir ce qui est tendance sur Instagram, sans payer d'abonnement.</span></li>
-  </ol>
-
-  <div class="install-note">
-    <strong>Bon à savoir :</strong> utilise-le pour ta veille et ta recherche (repérer des opportunités, comprendre ta niche, trouver des prospects). Reste dans les infos publiques et respecte les règles de chaque plateforme.
+  <div class="lead">
+    <div class="eyebrow"><span class="badge">VEILLE</span> Ressource gratuite</div>
+    <h1>Claude fouille LinkedIn et YouTube à ta place, gratuitement</h1>
+    <p class="lede">Un skill gratuit et open source donne à Claude accès à tout internet, même LinkedIn, YouTube et Instagram. Ta veille et ta prospection deviennent gratuites et rapides. Voici comment l'installer et t'en servir pour trouver tes prochains clients.</p>
   </div>
+
+  <nav class="toc">
+    <p class="tt">Dans ce guide</p>
+    <ol><li><a href="#concept">Débride Claude sur tout internet</a></li><li><a href="#valeur">Trouver un client devient un jeu</a></li><li><a href="#methode">L'installer, étape par étape</a></li><li><a href="#requetes">Des exemples concrets</a></li><li><a href="#erreurs">Les erreurs à éviter</a></li></ol>
+  </nav>
+
+  <section class="sec" id="concept">
+    <p class="kick">Le concept</p>
+    <h2>Débride Claude sur tout internet</h2>
+    <p class="p">Par défaut, Claude est limité dans ce qu'il peut aller lire sur le web. Un <b>skill gratuit et open source</b> change tout : il donne à Claude accès à internet en entier, même LinkedIn, YouTube et Instagram.</p>    <p class="p">Résultat, ta veille et ta prospection, que tu payais avant ou que tu faisais à la main pendant des heures, deviennent gratuites et rapides.</p>
+  </section>
+  <section class="sec" id="valeur">
+    <p class="kick">Pourquoi ça change tout</p>
+    <h2>Trouver ton prochain client devient un jeu</h2>
+    <div class="roi"><div class="cell"><span class="big">des heures</span><span class="lab">à chercher à la main</span></div><div class="arrow">&rarr;</div><div class="cell after"><span class="big">quelques minutes</span><span class="lab">et c'est gratuit</span></div></div>
+  </section>
+  <section class="sec" id="methode">
+    <p class="kick">La méthode</p>
+    <h2>L'installer, étape par étape</h2>
+    <p class="p"><b>1.</b> Tu installes le skill comme les autres, une seule fois.</p>    <p class="p"><b>2.</b> Tu lances une seule commande dans ton terminal pour l'activer.</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
+<pre><span class="u">$</span> <span class="c">agent-reach doctor</span>
+<span class="o">Acces web actif. Claude peut aller chercher l'info partout.</span></pre></div>    <p class="p"><b>3.</b> Ensuite tu lui demandes ce que tu veux, en langage normal.</p>
+  </section>
+  <section class="sec" id="requetes">
+    <p class="kick">Des exemples concrets</p>
+    <h2>Ce que tu peux lui demander</h2>
+    <p class="p">Voici le genre de demande que tu peux lui faire, direct, en français.</p>    <div class="promptbox"><div class="bar"><span class="label">À copier dans Claude</span><button class="copy" type="button">Copier</button></div>
+<pre>Trouve-moi des prospects sur LinkedIn dans la coiffure a domicile. Ensuite analyse les 5 videos YouTube qui cartonnent sur ce sujet, et dis-moi les angles qui reviennent.</pre></div>    <div class="out"><p class="ol">Ce que ça te renvoie</p><ul><li>Une liste de profils LinkedIn dans ta niche</li><li>Les vidéos les plus vues et pourquoi elles marchent</li><li>Les angles à reprendre pour ton propre contenu</li></ul></div>
+  </section>
+  <section class="sec" id="erreurs">
+    <p class="kick">Les erreurs à éviter</p>
+    <h2>Pour t'en servir intelligemment</h2>
+    <ul class="tips"><li><b>Sois précis sur ta niche.</b> « Coiffure à domicile à telle échelle » vaut mieux que « des clients ». Plus c'est ciblé, meilleurs sont les résultats.</li><li><b>C'est de la veille, pas du spam.</b> Sers-t'en pour comprendre et approcher intelligemment, pas pour envoyer des messages en masse.</li><li><b>Recoupe l'info.</b> Demande-lui ses sources et vérifie avant d'agir dessus.</li><li><b>Garde le skill à jour</b> pour suivre les plateformes qui changent.</li></ul>
+  </section>
+
+
+  <a class="cta-btn" style="margin-top:36px" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
+  <p class="cta-note">Le skill est gratuit et open source. Tu l'ajoutes à Claude Code une seule fois.</p>
+
+  <div class="callout"><b>Bientôt sur cette page :</b> mes requêtes de prospection prêtes à copier pour remplir ton agenda de clients. Rejoins la communauté privée en dessous.</div>
 
   <div class="foot">
     <div class="community">
@@ -55,5 +198,20 @@
     <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
   </div>
 </main>
+
+<div class="toast" id="toast">Copié</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.promptbox').querySelector('pre');
+    var txt = pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.classList.add('done'); btn.textContent = 'Copié';
+      var t = document.getElementById('toast'); t.classList.add('show');
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = 'Copier'; t.classList.remove('show'); }, 1600);
+    });
+  });
+});
+</script>
 </body>
 </html>
