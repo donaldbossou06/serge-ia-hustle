@@ -72,6 +72,38 @@
 .callout{margin:22px 0 0;padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15.5px;line-height:1.55}
 .callout b{color:var(--text)}
 .install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
+
+/* centrage des titres */
+.lead{text-align:center}
+.lead .eyebrow{margin-left:auto;margin-right:auto}
+.lead .lede{max-width:47ch;margin-left:auto;margin-right:auto}
+.sec>.kick,.sec>h2{text-align:center}
+
+/* sommaire */
+.toc{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:18px 20px;margin:6px 0 8px;box-shadow:var(--shadow-sm)}
+.toc .tt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t;display:flex;flex-direction:column;gap:9px}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:11px;align-items:baseline;text-decoration:none;color:var(--text);font-size:15.5px;line-height:1.35}
+.toc a::before{content:counter(t);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;flex:0 0 auto}
+.toc a:hover{color:var(--accent)}
+
+/* fenetre navigateur (capture reelle) */
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin:18px 0 0;background:var(--surface)}
+.frame .fbar{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.frame .fbar i{width:10px;height:10px;border-radius:50%;display:block}
+.frame .fbar .r{background:#ff5f56}.frame .fbar .y{background:#ffbd2e}.frame .fbar .g{background:#27c93f}
+.frame .fbar .url{margin-left:8px;flex:1;min-width:0;background:var(--ground);border:1px solid var(--border);border-radius:7px;font-size:11.5px;color:var(--muted);padding:5px 11px;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto}
+
+/* bande gain de temps */
+.roi{display:flex;align-items:stretch;gap:0;margin:16px 0 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.roi .cell{flex:1;padding:16px 14px;text-align:center;background:var(--surface)}
+.roi .cell.after{background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.roi .cell .big{font-family:var(--display);font-weight:800;font-size:clamp(22px,6vw,30px);line-height:1;letter-spacing:-.02em;display:block}
+.roi .cell.after .big{color:var(--accent)}
+.roi .cell .lab{font-size:12px;color:var(--muted);margin-top:6px;display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.roi .arrow{flex:0 0 auto;display:grid;place-items:center;padding:0 4px;color:var(--accent);font-size:20px;background:var(--surface)}
 @media (max-width:520px){.compare{grid-template-columns:1fr}}
 </style>
 </head>
@@ -82,11 +114,24 @@
 
 <main class="wrap">
   <a class="back" href="..">&larr; Toutes les ressources</a>
-  <div class="eyebrow"><span class="badge">DESIGN</span> Ressource gratuite</div>
-  <h1>Transforme une idée en <span class="mark">maquette</span> pro, sans savoir designer</h1>
-  <p class="lede">Tu as une idée de page, la capture d'un site que tu aimes, ou juste une phrase en tête. La commande <b>/design</b> de Claude Code la transforme en plusieurs maquettes que tu poses côte à côte, que tu ajustes, et que Claude code pour toi. Voici comment t'en servir pour de vrai, avec des exemples que tu peux copier ce soir.</p>
+  <div class="lead">
+    <div class="eyebrow"><span class="badge">DESIGN</span> Ressource gratuite</div>
+    <h1>Transforme une idée en <span class="mark">maquette</span> pro, sans savoir designer</h1>
+    <p class="lede">Tu as une idée de page, la capture d'un site que tu aimes, ou juste une phrase en tête. La commande <b>/design</b> de Claude Code la transforme en plusieurs maquettes que tu poses côte à côte, que tu ajustes, et que Claude code pour toi. Voici comment t'en servir pour de vrai, avec des exemples que tu peux copier ce soir.</p>
+  </div>
 
-  <section class="sec">
+  <nav class="toc">
+    <p class="tt">Dans ce guide</p>
+    <ol>
+      <li><a href="#concept">Ce que fait vraiment /design</a></li>
+      <li><a href="#valeur">Le temps et l'argent que ça t'économise</a></li>
+      <li><a href="#methode">La méthode, avec les vraies commandes</a></li>
+      <li><a href="#cas">Une page de vente en 4 messages</a></li>
+      <li><a href="#erreurs">Les erreurs qui gâchent le rendu</a></li>
+    </ol>
+  </nav>
+
+  <section class="sec" id="concept">
     <p class="kick">Le concept</p>
     <h2>Ce n'est pas un chatbot qui te répond du texte</h2>
     <p class="p">Quand tu tapes <b>/design</b>, Claude n'écrit pas un pavé. Il ouvre un vrai plan de travail avec plusieurs maquettes visuelles posées côte à côte, comme dans un outil de designer. Tu vois 3 versions de ta page en même temps, tu compares, tu pointes celle que tu préfères.</p>
@@ -99,9 +144,14 @@
     <p class="cap">Ce que tu obtiens : trois directions posées côte à côte. Tu gardes la meilleure.</p>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="valeur">
     <p class="kick">Pourquoi ça change tout</p>
     <h2>Ce que ça t'économise, concrètement</h2>
+    <div class="roi">
+      <div class="cell"><span class="big">2 jours</span><span class="lab">à attendre un designer</span></div>
+      <div class="arrow">&rarr;</div>
+      <div class="cell after"><span class="big">15 min</span><span class="lab">et c'est en ligne</span></div>
+    </div>
     <div class="compare">
       <div class="col bad">
         <h4>Avant</h4>
@@ -123,7 +173,7 @@
     <p class="p">Traduit en clair, le temps que tu passais à galérer sur le visuel, tu le remets sur ce qui rapporte, trouver des clients et vendre. Et une page qui a l'air pro, c'est une page qui inspire confiance. Donc une page qui convertit mieux.</p>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="methode">
     <p class="kick">La méthode</p>
     <h2>Étape par étape, avec les vraies commandes</h2>
 
@@ -162,7 +212,7 @@ responsive, prete a mettre en ligne.</pre>
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="cas">
     <p class="kick">Cas concret</p>
     <h2>Une page de vente complète en 4 messages</h2>
     <p class="p">Pour que tu voies le rythme réel, voici l'enchaînement du début à la page en ligne. Quatre messages, pas plus.</p>
@@ -186,7 +236,7 @@ responsive, prete a mettre en ligne.</pre>
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="erreurs">
     <p class="kick">Les erreurs à éviter</p>
     <h2>Ce qui sépare un rendu « bof » d'un rendu « wow »</h2>
     <ul class="tips">
@@ -195,6 +245,11 @@ responsive, prete a mettre en ligne.</pre>
       <li><b>Colle une capture d'un site que tu aimes.</b> Claude s'en sert comme référence de style et se rapproche tout de suite du rendu que tu veux.</li>
       <li><b>Ne t'arrête pas à la première maquette.</b> Les deux ou trois allers-retours d'ajustement, c'est exactement là que ça devient pro.</li>
     </ul>
+    <div class="frame">
+      <div class="fbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">linear.app</span></div>
+      <img src="../assets/ex-site.jpg" alt="Exemple de page inspirante à donner en référence à Claude" loading="lazy">
+    </div>
+    <p class="cap">Le genre de page propre que tu peux coller en référence. Claude s'en inspire pour le style, il ne copie pas.</p>
   </section>
 
   <a class="cta-btn" style="margin-top:36px" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
