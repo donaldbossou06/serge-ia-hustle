@@ -3,12 +3,128 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guide système Claude qui s'améliore seul · Serge IA Hustle</title>
-<meta name="description" content="Les 6 compétences à créer pour transformer Claude en un système qui s'améliore tout seul.">
+<title>Guide systeme Claude qui s'ameliore seul · Serge IA Hustle</title>
+<meta name="description" content="Les 6 competences a creer pour transformer Claude en un assistant qui s'ameliore tout seul et bosse pour toi.">
 <link rel="stylesheet" href="../assets/style.css">
 <style>
+.sec{margin:44px 0 0}
+.sec .kick{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2{font-family:var(--display);font-size:clamp(23px,6vw,31px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:0}
+.p{color:var(--muted);font-size:16.5px;line-height:1.64;margin:14px 0}
+.p b,.p strong{color:var(--text);font-weight:600}
+.cap{color:var(--muted);font-size:13.5px;text-align:center;margin:10px 0 0;opacity:.9}
+
+/* terminal window */
+.term{background:#0a0d14;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);margin:18px 0}
+.term .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#11151e;border-bottom:1px solid var(--border)}
+.term .tbar i{width:11px;height:11px;border-radius:50%;display:block}
+.term .tbar .r{background:#ff5f56}.term .tbar .y{background:#ffbd2e}.term .tbar .g{background:#27c93f}
+.term .tbar .name{margin-left:8px;font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.term pre{padding:16px;font-size:13px;line-height:1.75;color:#e8e8ea;background:transparent}
+.term .u{color:var(--accent)}
+.term .c{color:#7ee787}
+.term .o{color:#9c988f}
+.term .hl{color:#f5f2e9}
+
+/* artboard canvas mock */
+.canvas{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0 0}
+.board{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;box-shadow:var(--shadow-sm);aspect-ratio:9/15;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.board.pick{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent),var(--shadow-sm)}
+.board .tag{position:absolute;top:7px;left:7px;font-size:8.5px;font-weight:800;letter-spacing:.06em;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+.board.pick .tag{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.board .bl{background:var(--surface-3);border-radius:5px;flex:0 0 auto}
+.board .b-hero{height:30%;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 40%,var(--surface-3)),var(--surface-3));margin-top:16px}
+.board .b-t{height:9px;width:78%}
+.board .b-t.s{width:56%}
+.board .b-btn{height:16px;width:64%;background:var(--accent);border-radius:6px;margin-top:auto}
+.board.pick .b-btn{background:var(--accent)}
+
+/* before / after */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
+.col{border:1px solid var(--border);border-radius:14px;padding:16px 16px 18px;background:var(--surface)}
+.col.bad{background:color-mix(in srgb,#ff5f56 6%,var(--surface))}
+.col.good{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+.col h4{font-family:var(--display);font-size:14px;font-weight:800;letter-spacing:.02em;margin:0 0 12px;text-transform:uppercase}
+.col.bad h4{color:#ff8079}.col.good h4{color:var(--accent)}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.col li{font-size:14.5px;line-height:1.45;color:var(--muted);padding-left:22px;position:relative}
+.col li::before{position:absolute;left:0;top:0;font-weight:800}
+.col.bad li::before{content:"✕";color:#ff8079}
+.col.good li::before{content:"✓";color:var(--accent)}
+.col.good li{color:var(--text)}
+
+/* flow walkthrough */
+.flow{display:flex;flex-direction:column;gap:12px;margin:20px 0 0;position:relative}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow-sm)}
+.fstep .msg{display:flex;gap:11px;align-items:flex-start}
+.fstep .who{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--surface-2);border:1px solid var(--border);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;display:grid;place-items:center}
+.fstep .txt{font-size:15px;line-height:1.5;color:var(--text);padding-top:3px}
+.fstep .txt em{color:var(--muted);font-style:normal}
+.fstep .out{margin:11px 0 0 41px;font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.fstep .out b{color:var(--accent);font-weight:800;flex:0 0 auto}
+
+/* tips */
+.tips{display:flex;flex-direction:column;gap:13px;margin:20px 0 0;padding:0;list-style:none}
+.tips li{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5;color:var(--muted)}
+.tips li b{color:var(--text);font-weight:600}
+
+/* callout / teaser */
+.callout{margin:22px 0 0;padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15.5px;line-height:1.55}
+.callout b{color:var(--text)}
 .install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
-.install-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* centrage des titres */
+.lead{text-align:center}
+.lead .eyebrow{margin-left:auto;margin-right:auto}
+.lead .lede{max-width:47ch;margin-left:auto;margin-right:auto}
+.sec>.kick,.sec>h2{text-align:center}
+
+/* sommaire */
+.toc{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:18px 20px;margin:6px 0 8px;box-shadow:var(--shadow-sm)}
+.toc .tt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t;display:flex;flex-direction:column;gap:9px}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:11px;align-items:baseline;text-decoration:none;color:var(--text);font-size:15.5px;line-height:1.35}
+.toc a::before{content:counter(t);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;flex:0 0 auto}
+.toc a:hover{color:var(--accent)}
+
+/* fenetre navigateur (capture reelle) */
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin:18px 0 0;background:var(--surface)}
+.frame .fbar{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.frame .fbar i{width:10px;height:10px;border-radius:50%;display:block}
+.frame .fbar .r{background:#ff5f56}.frame .fbar .y{background:#ffbd2e}.frame .fbar .g{background:#27c93f}
+.frame .fbar .url{margin-left:8px;flex:1;min-width:0;background:var(--ground);border:1px solid var(--border);border-radius:7px;font-size:11.5px;color:var(--muted);padding:5px 11px;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto}
+
+/* bande gain de temps */
+.roi{display:flex;align-items:stretch;gap:0;margin:16px 0 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.roi .cell{flex:1;padding:16px 14px;text-align:center;background:var(--surface)}
+.roi .cell.after{background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.roi .cell .big{font-family:var(--display);font-weight:800;font-size:clamp(22px,6vw,30px);line-height:1;letter-spacing:-.02em;display:block}
+.roi .cell.after .big{color:var(--accent)}
+.roi .cell .lab{font-size:12px;color:var(--muted);margin-top:6px;display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.roi .arrow{flex:0 0 auto;display:grid;place-items:center;padding:0 4px;color:var(--accent);font-size:20px;background:var(--surface)}
+@media (max-width:520px){.compare{grid-template-columns:1fr}}
+
+.tblwrap{overflow-x:auto;margin:18px 0 0}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;border:1px solid var(--border);border-radius:12px;overflow:hidden;min-width:520px}
+.tbl th,.tbl td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45}
+.tbl th{background:var(--surface-2);font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tbl td b,.tbl td .m{color:var(--text);font-weight:600}
+.tbl td .m{color:var(--accent);font-weight:700}
+.tbl tr:last-child td{border-bottom:0}
+.out{margin:16px 0 0;padding:15px 17px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--border));border-radius:12px;background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+.out .ol{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}
+.out ul{margin:0;padding-left:18px}.out li{color:var(--text);font-size:14.5px;margin:5px 0;line-height:1.45}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0 0;box-shadow:var(--shadow-sm)}
+.split .code{background:#0a0d14;padding:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;line-height:1.7;color:#9c988f}
+.split .code .c{color:#7ee787}.split .code .t{color:#e8e8ea}
+.split .prev{background:var(--surface-2);padding:16px 14px;display:flex;flex-direction:column;gap:9px;align-items:center;justify-content:center}
+.split .prev .bar{height:8px;border-radius:4px;background:var(--surface-3);width:70%}
+.split .prev .bar.s{width:48%}
+.split .prev .btn{margin-top:4px;padding:8px 16px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:800;font-size:12px;position:relative}
+.split .prev .btn.sel{outline:2px dashed var(--accent);outline-offset:3px}
+@media (max-width:520px){.split{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -18,24 +134,43 @@
 
 <main class="wrap">
   <a class="back" href="..">&larr; Toutes les ressources</a>
-  <div class="eyebrow"><span class="badge">SYSTEME</span> Ressource gratuite</div>
-  <h1>Fais de <span class="mark">Claude</span> un système qui s'améliore seul</h1>
-  <p class="lede">Par défaut, Claude n'a pas toutes les infos, ne te connaît pas vraiment, et ne s'améliore pas. Mais avec 6 compétences, tu le transformes en un assistant qui devient meilleur au fil du temps. Les voici.</p>
+  <div class="lead">
+    <div class="eyebrow"><span class="badge">SYSTEME</span> Ressource gratuite</div>
+    <h1>Fais de Claude un système qui s'améliore seul</h1>
+    <p class="lede">Par défaut, Claude n'a pas toutes les infos, ne te connaît pas, et ne progresse pas. Avec 6 compétences, tu le transformes en un assistant qui devient meilleur au fil du temps. Voici les 6, et ce que chacune te rapporte.</p>
+  </div>
 
-  <a class="cta-btn" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
+  <nav class="toc">
+    <p class="tt">Dans ce guide</p>
+    <ol><li><a href="#concept">Claude ne s'améliore pas tout seul</a></li><li><a href="#les6">Les 6 compétences</a></li><li><a href="#commencer">Par où commencer</a></li><li><a href="#erreurs">Les erreurs à éviter</a></li></ol>
+  </nav>
+
+  <section class="sec" id="concept">
+    <p class="kick">Le concept</p>
+    <h2>Claude ne s'améliore pas tout seul</h2>
+    <p class="p">Par défaut, Claude n'a pas toutes les infos, ne te connaît pas vraiment, et repart de zéro à chaque fois.</p>    <p class="p">Les <b>compétences</b> (les skills) sont des fichiers que tu ajoutes une seule fois. Chacune comble un manque précis. Mises bout à bout, elles transforment Claude en un assistant qui devient meilleur au fil du temps, et qui bosse pour toi.</p>
+  </section>
+  <section class="sec" id="les6">
+    <p class="kick">Les 6 compétences</p>
+    <h2>Ce que chacune débloque, et ce que ça te rapporte</h2>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>La compétence</th><th>Ce que ça débloque</th><th>Ton gain</th></tr></thead><tbody><tr><td><b>Accès complet au web</b></td><td>Il lit vraiment toutes les pages qu'il faut</td><td>Des infos à jour, meilleures décisions</td></tr><tr><td><b>La mémoire</b></td><td>Il se rappelle d'une session à l'autre</td><td>Tu ne réexpliques plus jamais ton contexte</td></tr><tr><td><b>L'auto-amélioration</b></td><td>Il apprend de vos échanges</td><td>Il devient plus pertinent chaque semaine</td></tr><tr><td><b>Les experts sur mesure</b></td><td>Un expert du domaine que tu veux</td><td>Des réponses de pro en marketing, vente, droit</td></tr><tr><td><b>Le clone d'audience</b></td><td>Il comprend à qui tu parles</td><td>Des messages qui vendent, adaptés à ta cible</td></tr><tr><td><b>La structure de travail</b></td><td>Réfléchir, planifier, exécuter, vérifier</td><td>Il arrête de bâcler, il livre du solide</td></tr></tbody></table></div>
+  </section>
+  <section class="sec" id="commencer">
+    <p class="kick">Par où commencer</p>
+    <h2>Ne fais pas tout d'un coup</h2>
+    <p class="p">Tu n'es pas obligé de tout créer en même temps. Commence par les deux qui changent le plus la donne au quotidien.</p>    <div class="out"><p class="ol">Tes 2 premières compétences</p><ul><li><b>La mémoire</b>, pour qu'il te connaisse et gagne du temps</li><li><b>L'accès complet au web</b>, pour qu'il travaille avec de vraies infos à jour</li></ul></div>
+  </section>
+  <section class="sec" id="erreurs">
+    <p class="kick">Les erreurs à éviter</p>
+    <h2>Pour construire un vrai système</h2>
+    <ul class="tips"><li><b>Pas tout d'un coup.</b> Deux compétences bien posées valent mieux que six à moitié faites.</li><li><b>Nourris la mémoire.</b> Plus tu lui dis quoi retenir, plus il devient utile.</li><li><b>Sois précis avec le clone d'audience.</b> Décris ta cible en détail, c'est ce qui fait vendre.</li><li><b>Laisse la structure faire son travail.</b> Réfléchir puis exécuter, c'est ce qui sépare un gadget d'un vrai assistant.</li></ul>
+  </section>
+
+
+  <a class="cta-btn" style="margin-top:36px" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
   <p class="cta-note">Les compétences (skills) sont des fichiers que tu ajoutes à Claude une seule fois.</p>
 
-  <p class="lede" style="font-size:16px">Les 6 compétences à créer :</p>
-  <ol class="steps">
-    <li><span class="num">1</span><span><b>L'accès complet au web</b> — Claude va lire vraiment toutes les pages qu'il faut et te ramène de meilleures informations, à jour.</span></li>
-    <li><span class="num">2</span><span><b>La mémoire</b> — Claude se rappelle de ce que tu lui dis d'une session à l'autre, au lieu de repartir de zéro à chaque fois.</span></li>
-    <li><span class="num">3</span><span><b>L'auto-amélioration</b> — Claude apprend de vos échanges et devient plus pertinent au fil du temps.</span></li>
-    <li><span class="num">4</span><span><b>Les experts sur mesure</b> — tu crées un expert dans le domaine que tu veux (marketing, vente, droit) et Claude répond comme lui.</span></li>
-    <li><span class="num">5</span><span><b>Le clone de ton audience</b> — Claude comprend à qui tu parles et adapte chaque message à ta cible, pour que ça vende.</span></li>
-    <li><span class="num">6</span><span><b>La structure de travail</b> — tu forces Claude à suivre les bonnes étapes (réfléchir, planifier, exécuter, vérifier) qu'il ne fait pas tout seul.</span></li>
-  </ol>
-
-  <div class="install-note"><strong>Bon à savoir :</strong> tu n'es pas obligé de tout créer d'un coup. Commence par la mémoire et l'accès au web, ce sont les deux qui changent le plus la donne au quotidien.</div>
+  <div class="callout"><b>Bientôt sur cette page :</b> mes 6 compétences prêtes à installer, une par une. Rejoins la communauté privée en dessous pour les recevoir.</div>
 
   <div class="foot">
     <div class="community">
@@ -55,5 +190,20 @@
     <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
   </div>
 </main>
+
+<div class="toast" id="toast">Copié</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.promptbox').querySelector('pre');
+    var txt = pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.classList.add('done'); btn.textContent = 'Copié';
+      var t = document.getElementById('toast'); t.classList.add('show');
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = 'Copier'; t.classList.remove('show'); }, 1600);
+    });
+  });
+});
+</script>
 </body>
 </html>
