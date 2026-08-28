@@ -4,11 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guide /design · Serge IA Hustle</title>
-<meta name="description" content="Le guide étape par étape pour créer tes designs directement dans Claude Code avec la commande /design.">
+<meta name="description" content="Le guide complet pour transformer une idée en vraies maquettes de page avec la commande /design de Claude Code, avec des exemples que tu peux copier.">
 <link rel="stylesheet" href="../assets/style.css">
 <style>
+.sec{margin:44px 0 0}
+.sec .kick{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2{font-family:var(--display);font-size:clamp(23px,6vw,31px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:0}
+.p{color:var(--muted);font-size:16.5px;line-height:1.64;margin:14px 0}
+.p b,.p strong{color:var(--text);font-weight:600}
+.cap{color:var(--muted);font-size:13.5px;text-align:center;margin:10px 0 0;opacity:.9}
+
+/* terminal window */
+.term{background:#0a0d14;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);margin:18px 0}
+.term .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#11151e;border-bottom:1px solid var(--border)}
+.term .tbar i{width:11px;height:11px;border-radius:50%;display:block}
+.term .tbar .r{background:#ff5f56}.term .tbar .y{background:#ffbd2e}.term .tbar .g{background:#27c93f}
+.term .tbar .name{margin-left:8px;font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.term pre{padding:16px;font-size:13px;line-height:1.75;color:#e8e8ea;background:transparent}
+.term .u{color:var(--accent)}
+.term .c{color:#7ee787}
+.term .o{color:#9c988f}
+.term .hl{color:#f5f2e9}
+
+/* artboard canvas mock */
+.canvas{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0 0}
+.board{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;box-shadow:var(--shadow-sm);aspect-ratio:9/15;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.board.pick{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent),var(--shadow-sm)}
+.board .tag{position:absolute;top:7px;left:7px;font-size:8.5px;font-weight:800;letter-spacing:.06em;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+.board.pick .tag{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.board .bl{background:var(--surface-3);border-radius:5px;flex:0 0 auto}
+.board .b-hero{height:30%;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 40%,var(--surface-3)),var(--surface-3));margin-top:16px}
+.board .b-t{height:9px;width:78%}
+.board .b-t.s{width:56%}
+.board .b-btn{height:16px;width:64%;background:var(--accent);border-radius:6px;margin-top:auto}
+.board.pick .b-btn{background:var(--accent)}
+
+/* before / after */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
+.col{border:1px solid var(--border);border-radius:14px;padding:16px 16px 18px;background:var(--surface)}
+.col.bad{background:color-mix(in srgb,#ff5f56 6%,var(--surface))}
+.col.good{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+.col h4{font-family:var(--display);font-size:14px;font-weight:800;letter-spacing:.02em;margin:0 0 12px;text-transform:uppercase}
+.col.bad h4{color:#ff8079}.col.good h4{color:var(--accent)}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.col li{font-size:14.5px;line-height:1.45;color:var(--muted);padding-left:22px;position:relative}
+.col li::before{position:absolute;left:0;top:0;font-weight:800}
+.col.bad li::before{content:"✕";color:#ff8079}
+.col.good li::before{content:"✓";color:var(--accent)}
+.col.good li{color:var(--text)}
+
+/* flow walkthrough */
+.flow{display:flex;flex-direction:column;gap:12px;margin:20px 0 0;position:relative}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow-sm)}
+.fstep .msg{display:flex;gap:11px;align-items:flex-start}
+.fstep .who{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--surface-2);border:1px solid var(--border);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;display:grid;place-items:center}
+.fstep .txt{font-size:15px;line-height:1.5;color:var(--text);padding-top:3px}
+.fstep .txt em{color:var(--muted);font-style:normal}
+.fstep .out{margin:11px 0 0 41px;font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.fstep .out b{color:var(--accent);font-weight:800;flex:0 0 auto}
+
+/* tips */
+.tips{display:flex;flex-direction:column;gap:13px;margin:20px 0 0;padding:0;list-style:none}
+.tips li{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5;color:var(--muted)}
+.tips li b{color:var(--text);font-weight:600}
+
+/* callout / teaser */
+.callout{margin:22px 0 0;padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15.5px;line-height:1.55}
+.callout b{color:var(--text)}
 .install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
-.install-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@media (max-width:520px){.compare{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -19,23 +83,125 @@
 <main class="wrap">
   <a class="back" href="..">&larr; Toutes les ressources</a>
   <div class="eyebrow"><span class="badge">DESIGN</span> Ressource gratuite</div>
-  <h1>Crée tes designs dans <span class="mark">Claude Code</span></h1>
-  <p class="lede">Une idée, une capture d'écran, ou un site que tu aimes : Claude Code les transforme en <strong>vraies maquettes modifiables</strong>, sans quitter ton terminal. Voici comment, étape par étape.</p>
+  <h1>Transforme une idée en <span class="mark">maquette</span> pro, sans savoir designer</h1>
+  <p class="lede">Tu as une idée de page, la capture d'un site que tu aimes, ou juste une phrase en tête. La commande <b>/design</b> de Claude Code la transforme en plusieurs maquettes que tu poses côte à côte, que tu ajustes, et que Claude code pour toi. Voici comment t'en servir pour de vrai, avec des exemples que tu peux copier ce soir.</p>
 
-  <a class="cta-btn" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
-  <p class="cta-note">La commande <b>/design</b> est intégrée à Claude Code (aperçu de recherche). Rien à installer en plus.</p>
+  <section class="sec">
+    <p class="kick">Le concept</p>
+    <h2>Ce n'est pas un chatbot qui te répond du texte</h2>
+    <p class="p">Quand tu tapes <b>/design</b>, Claude n'écrit pas un pavé. Il ouvre un vrai plan de travail avec plusieurs maquettes visuelles posées côte à côte, comme dans un outil de designer. Tu vois 3 versions de ta page en même temps, tu compares, tu pointes celle que tu préfères.</p>
+    <p class="p">Et le plus fort, c'est qu'il lit le style qui existe déjà dans ton projet, tes couleurs, tes polices, tes composants, pour que les maquettes te ressemblent. Au lieu d'un truc générique qui n'a rien à voir avec ta marque, tu obtiens quelque chose de cohérent dès le premier essai.</p>
+    <div class="canvas" aria-hidden="true">
+      <div class="board"><span class="tag">Version 1</span><span class="bl b-hero"></span><span class="bl b-t"></span><span class="bl b-t s"></span><span class="bl b-btn"></span></div>
+      <div class="board pick"><span class="tag">Choisie</span><span class="bl b-hero"></span><span class="bl b-t"></span><span class="bl b-t s"></span><span class="bl b-btn"></span></div>
+      <div class="board"><span class="tag">Version 3</span><span class="bl b-hero"></span><span class="bl b-t"></span><span class="bl b-t s"></span><span class="bl b-btn"></span></div>
+    </div>
+    <p class="cap">Ce que tu obtiens : trois directions posées côte à côte. Tu gardes la meilleure.</p>
+  </section>
 
-  <p class="lede" style="font-size:16px">La méthode, en 5 étapes :</p>
-  <ol class="steps">
-    <li><span class="num">1</span><span>Ouvre <b>Claude Code</b> (le terminal ou l'app desktop) dans le dossier de ton projet.</span></li>
-    <li><span class="num">2</span><span>Tape <b>/design</b> suivi de ce que tu veux. Par exemple : <b>/design 3 versions d'une page de vente pour mon produit</b>. Tu peux aussi coller une <b>capture</b> d'un site que tu aimes, ou pointer un design existant.</span></li>
-    <li><span class="num">3</span><span>Claude publie un <b>canevas de maquettes éditables</b> (des artboards). Il s'appuie sur le style de ton projet pour rester cohérent.</span></li>
-    <li><span class="num">4</span><span>Choisis la version que tu préfères, <b>ajuste-la</b>, puis demande à Claude de <b>la coder</b> pour toi.</span></li>
-    <li><span class="num">5</span><span>Partage le résultat en <b>un simple lien</b>. Sur les offres Team, ton équipe peut même le modifier et republier une nouvelle version.</span></li>
-  </ol>
+  <section class="sec">
+    <p class="kick">Pourquoi ça change tout</p>
+    <h2>Ce que ça t'économise, concrètement</h2>
+    <div class="compare">
+      <div class="col bad">
+        <h4>Avant</h4>
+        <ul>
+          <li>Payer un designer et attendre plusieurs jours</li>
+          <li>Ou te battre des heures dans un outil que tu ne maîtrises pas</li>
+          <li>Ou pondre une page fade qui ne donne pas envie de commander</li>
+        </ul>
+      </div>
+      <div class="col good">
+        <h4>Avec /design</h4>
+        <ul>
+          <li>Trois versions pro en quelques minutes</li>
+          <li>Déjà codées, prêtes à mettre en ligne</li>
+          <li>Un style cohérent avec ta marque, du premier coup</li>
+        </ul>
+      </div>
+    </div>
+    <p class="p">Traduit en clair, le temps que tu passais à galérer sur le visuel, tu le remets sur ce qui rapporte, trouver des clients et vendre. Et une page qui a l'air pro, c'est une page qui inspire confiance. Donc une page qui convertit mieux.</p>
+  </section>
 
-  <div class="install-note">
-    <strong>Bon à savoir :</strong> /design est en aperçu de recherche, disponible sur les offres <b>Pro, Max, Team et Enterprise</b>. Garde ton Claude Code à jour (CLI ou app desktop) pour en profiter.
+  <section class="sec">
+    <p class="kick">La méthode</p>
+    <h2>Étape par étape, avec les vraies commandes</h2>
+
+    <p class="p"><b>1.</b> Ouvre Claude Code dans le dossier de ton projet.</p>
+    <div class="term">
+      <div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
+<pre><span class="u">$</span> <span class="c">cd mon-site</span>
+<span class="u">$</span> <span class="c">claude</span>
+<span class="o">Claude Code prêt. Tape /design pour lancer une maquette.</span></pre>
+    </div>
+
+    <p class="p"><b>2.</b> Tape <b>/design</b> suivi de ce que tu veux. Le secret : précise toujours le <b>but</b> de la page et à <b>qui</b> elle parle. Voici un exemple que tu peux copier.</p>
+    <div class="promptbox">
+      <div class="bar"><span class="label">À copier dans Claude Code</span><button class="copy" type="button">Copier</button></div>
+<pre>/design 3 versions d'une page de vente pour un serum
+visage. Cible : femmes 25 a 40 ans qui veulent une peau
+nette. But : donner envie de commander tout de suite.
+Style premium, chaleureux, rassurant.</pre>
+    </div>
+
+    <p class="p"><b>3.</b> Claude publie les maquettes dans un canevas. Tu les ouvres, tu compares les trois directions en vrai, pas dans ta tête.</p>
+
+    <p class="p"><b>4.</b> Tu choisis, puis tu affines en langage normal, comme si tu parlais à un designer.</p>
+    <div class="promptbox">
+      <div class="bar"><span class="label">Ta demande d'ajustement</span><button class="copy" type="button">Copier</button></div>
+<pre>Je garde la version 2. Rends le bouton plus gros,
+mets un vrai temoignage juste en dessous, et remonte
+le prix plus bas dans la page.</pre>
+    </div>
+
+    <p class="p"><b>5.</b> Quand la maquette te plaît, tu demandes à Claude de la coder. Tu passes du dessin au site en une phrase.</p>
+    <div class="promptbox">
+      <div class="bar"><span class="label">Passer au code</span><button class="copy" type="button">Copier</button></div>
+<pre>Parfait. Code cette version en HTML et CSS propres,
+responsive, prete a mettre en ligne.</pre>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="kick">Cas concret</p>
+    <h2>Une page de vente complète en 4 messages</h2>
+    <p class="p">Pour que tu voies le rythme réel, voici l'enchaînement du début à la page en ligne. Quatre messages, pas plus.</p>
+    <div class="flow">
+      <div class="fstep">
+        <div class="msg"><span class="who">1</span><span class="txt">« <em>/design 3 versions d'une page pour vendre une montre connectée, cible hommes actifs, but commander en 1 clic.</em> »</span></div>
+        <div class="out"><b>&rarr;</b><span>Claude sort 3 maquettes différentes dans le canevas.</span></div>
+      </div>
+      <div class="fstep">
+        <div class="msg"><span class="who">2</span><span class="txt">« <em>Je prends la 1. Agrandis le titre et mets le bouton d'achat visible dès le haut.</em> »</span></div>
+        <div class="out"><b>&rarr;</b><span>La maquette est ajustée sous tes yeux, en direct.</span></div>
+      </div>
+      <div class="fstep">
+        <div class="msg"><span class="who">3</span><span class="txt">« <em>Ajoute une section avis clients avec 3 témoignages et une FAQ de 4 questions.</em> »</span></div>
+        <div class="out"><b>&rarr;</b><span>La page gagne la preuve sociale qui rassure et fait acheter.</span></div>
+      </div>
+      <div class="fstep">
+        <div class="msg"><span class="who">4</span><span class="txt">« <em>Code la page, responsive, prête à déployer.</em> »</span></div>
+        <div class="out"><b>&rarr;</b><span>Tu récupères le code, tu le mets en ligne, c'est vendu.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="kick">Les erreurs à éviter</p>
+    <h2>Ce qui sépare un rendu « bof » d'un rendu « wow »</h2>
+    <ul class="tips">
+      <li><b>Ne demande jamais une seule version.</b> Demandes-en trois. Comparer, c'est ce qui te fait tomber sur la bonne idée que tu n'avais pas en tête.</li>
+      <li><b>Donne toujours le but et la cible.</b> Vendre, inscrire, rassurer, et à qui. Sans ça, Claude devine. Et quand il devine, il devine mal.</li>
+      <li><b>Colle une capture d'un site que tu aimes.</b> Claude s'en sert comme référence de style et se rapproche tout de suite du rendu que tu veux.</li>
+      <li><b>Ne t'arrête pas à la première maquette.</b> Les deux ou trois allers-retours d'ajustement, c'est exactement là que ça devient pro.</li>
+    </ul>
+  </section>
+
+  <a class="cta-btn" style="margin-top:36px" href="https://www.claude.com/claude-code" target="_blank" rel="noopener">Découvrir Claude Code &rarr;</a>
+  <p class="cta-note">La commande <b>/design</b> est en aperçu de recherche, disponible sur les offres Pro, Max, Team et Enterprise. Garde ton Claude Code à jour pour en profiter.</p>
+
+  <div class="callout">
+    <b>Bientôt sur cette page :</b> mes modèles de pages qui convertissent, prêts à copier-coller dans /design. Rejoins la communauté privée juste en dessous pour les recevoir en premier.
   </div>
 
   <div class="foot">
@@ -56,5 +222,20 @@
     <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
   </div>
 </main>
+
+<div class="toast" id="toast">Copié</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.promptbox').querySelector('pre');
+    var txt = pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.classList.add('done'); btn.textContent = 'Copié';
+      var t = document.getElementById('toast'); t.classList.add('show');
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = 'Copier'; t.classList.remove('show'); }, 1600);
+    });
+  });
+});
+</script>
 </body>
 </html>
