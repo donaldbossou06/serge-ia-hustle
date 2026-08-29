@@ -1,5 +1,5 @@
 /* Serge IA Hustle - feuille de style partagée (accueil + sous-pages ressources) */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;450;500;600;700&family=Caveat:wght@600;700&display=swap');
 
 :root {
   --ground: #0b0d12;
@@ -257,3 +257,13 @@ pre {
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+/* ===== CHARTE REELS / CARROUSELS (force partout, dark) ===== */
+:root{
+  --ground:#1c1c1e; --surface:#242426; --surface-2:#2a2a2c; --surface-3:#323238;
+  --border:#3a3a40; --text:#f1f0ee; --muted:#a7a49d; --accent:#f3e600; --accent-ink:#141405; --coral:#d97757;
+  --display:"Montserrat", system-ui, sans-serif;
+  --shadow:0 26px 64px -30px rgba(0,0,0,.8); --shadow-sm:0 10px 26px -16px rgba(0,0,0,.7);
+}
+body{ background:#1c1c1e; background-image:radial-gradient(circle at 50% -6%, #262629, #171719 66%); }
