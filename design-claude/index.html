@@ -6,6 +6,7 @@
 <title>Guide /design · Serge IA Hustle</title>
 <meta name="description" content="Le guide complet pour transformer une idée en vraies maquettes de page avec la commande /design de Claude Code, avec des exemples que tu peux copier.">
 <link rel="stylesheet" href="../assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
 .sec{margin:44px 0 0}
 .sec .kick{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
@@ -105,6 +106,38 @@
 .roi .cell .lab{font-size:12px;color:var(--muted);margin-top:6px;display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
 .roi .arrow{flex:0 0 auto;display:grid;place-items:center;padding:0 4px;color:var(--accent);font-size:20px;background:var(--surface)}
 @media (max-width:520px){.compare{grid-template-columns:1fr}}
+
+/* ===================== CHARTE REELS / CARROUSELS (override) ===================== */
+:root{
+  --ground:#1c1c1e; --surface:#242426; --surface-2:#2a2a2c; --surface-3:#323238;
+  --border:#3a3a40; --text:#f1f0ee; --muted:#a7a49d; --accent:#f3e600; --accent-ink:#141405; --coral:#d97757;
+  --display:'Montserrat','Arial Black',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --hand:'Caveat','Segoe Script',cursive;
+}
+body{background:#1c1c1e; background-image:radial-gradient(circle at 50% -8%, #262629, #171719 66%);}
+h1{font-size:clamp(31px,7.4vw,52px); letter-spacing:-.02em; line-height:1.03}
+.lede{font-size:clamp(17px,2.7vw,20.5px); color:#cbc8c2; line-height:1.55}
+.p{font-size:17.5px; color:#c6c3bc; line-height:1.66}
+.p b,.p strong{color:#fff}
+.sec>.kick{font-family:var(--hand); color:var(--coral); font-size:23px; letter-spacing:0; text-transform:none; font-weight:700; margin-bottom:3px}
+.sec>h2{font-size:clamp(24px,5.6vw,33px); color:#fff}
+.cap{font-size:15px}
+.eyebrow .badge{font-family:var(--display)}
+/* CTA centré, façon LMDM */
+.cta-btn{display:flex; width:fit-content; margin:38px auto 10px; font-family:var(--display)}
+.cta-note{text-align:center; margin-left:auto; margin-right:auto; max-width:52ch}
+/* teaser façon LMDM : carte + liseré coral */
+.callout{background:var(--surface); border:1px solid color-mix(in srgb,var(--coral) 55%,var(--border)); border-radius:16px}
+/* rangée de logos d'outils */
+.logos{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:24px 0 2px}
+.logos .lg{display:inline-flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:9px 16px; box-shadow:var(--shadow-sm)}
+.logos .lg img{width:26px; height:26px; display:block}
+.logos .lg b{font-family:var(--display); font-weight:800; font-size:16px; color:#fff}
+.logos .plus{color:var(--muted); font-family:var(--display); font-weight:800}
+/* Montserrat sur les titres de composants */
+.community h2,.join-btn,.subbtn,.roi .big,.board .tag,.frame,.toc a{font-family:inherit}
+.community h2{font-family:var(--display)}
 </style>
 </head>
 <body>
@@ -118,6 +151,7 @@
     <div class="eyebrow"><span class="badge">DESIGN</span> Ressource gratuite</div>
     <h1>Transforme une idée en <span class="mark">maquette</span> pro, sans savoir designer</h1>
     <p class="lede">Tu as une idée de page, la capture d'un site que tu aimes, ou juste une phrase en tête. La commande <b>/design</b> de Claude Code la transforme en plusieurs maquettes que tu poses côte à côte, que tu ajustes, et que Claude code pour toi. Voici comment t'en servir pour de vrai, avec des exemples que tu peux copier ce soir.</p>
+    <div class="logos"><span class="lg"><img src="../assets/logo-claude.svg" alt="Claude"><b>Claude Code</b></span></div>
   </div>
 
   <nav class="toc">
