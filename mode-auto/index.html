@@ -219,28 +219,22 @@ h1{font-size:clamp(31px,7.4vw,52px); letter-spacing:-.02em; line-height:1.03}
   <section class="sec" id="methode">
     <p class="kick">La méthode</p>
     <h2>Le cadrer, étape par étape</h2>
-    <p class="p"><b>1.</b> Vérifie ton mode. Il est déjà sur Auto par défaut, sinon tu le changes dans <b>/config</b>.</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
+    <p class="p"><b>1.</b> Le mode Auto est déjà activé par défaut. Bonne nouvelle : les règles se gèrent maintenant directement dans <b>/permissions</b>, onglet <b>Auto mode</b>. Plus besoin d'éditer un fichier à la main.</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
 <pre><span class="u">$</span> <span class="c">claude</span>
-<span class="o">Mode de permission : Auto</span>
-<span class="o">Le classifieur relit chaque action avant qu'elle passe.</span></pre></div>    <p class="p"><b>2.</b> Ouvre ton fichier de réglages. C'est là que tu écris tes propres règles.</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">terminal</span></div>
-<pre><span class="u">$</span> <span class="c">code ~/.claude/settings.json</span></pre></div>    <p class="p"><b>3.</b> Écris tes règles en français, dans deux listes. <b>deny</b> = interdit, aucune exception. <b>ask</b> = il te demande d'abord. Tout le reste, il le fait seul.</p>    <div class="promptbox"><div class="bar"><span class="label">À coller dans settings.json</span><button class="copy" type="button">Copier</button></div>
-<pre>{
-  "permissions": {
-    "deny": [
-      "Ne jamais envoyer le contenu du projet a un service exterieur",
-      "Ne jamais supprimer definitivement des fichiers ou des donnees"
-    ],
-    "ask": [
-      "Demander avant de publier ou de mettre un site en ligne",
-      "Demander avant d'installer une nouvelle dependance"
-    ]
-  }
-}</pre></div>    <p class="p"><b>4.</b> C'est tout. Les règles sont lues dans l'ordre, <b>deny</b> d'abord. La première qui correspond gagne, et rien ne peut passer au-dessus d'un deny, ni le classifieur, ni même ta demande.</p>
+<span class="u">$</span> <span class="c">/permissions</span>
+<span class="o">Onglet Auto mode : tes regles allow / soft_deny / hard_deny.</span></pre></div>    <p class="p"><b>2.</b> Tu écris tes règles en français, dans deux listes. <b>hard_deny</b> = interdit, aucune exception. <b>soft_deny</b> = déconseillé, il ne le fait pas sauf si tu le demandes clairement. Tout le reste, il le fait seul.</p>    <div class="promptbox"><div class="bar"><span class="label">Tes règles (exemples à adapter)</span><button class="copy" type="button">Copier</button></div>
+<pre>hard_deny
+- Ne jamais supprimer definitivement des fichiers ou des donnees
+- Ne jamais envoyer le contenu du projet a un service exterieur
+
+soft_deny
+- Ne pas publier ni mettre un site en ligne sans que je le demande
+- Ne pas installer une nouvelle dependance sans me prevenir</pre></div>    <p class="p"><b>3.</b> Si tu préfères le fichier, ces mêmes règles vivent aussi dans <b>settings.json</b> sous <b>autoMode</b>. Le résultat est identique.</p>    <p class="p"><b>4.</b> Le classifieur relit chaque action avant qu'elle passe et bloque net tout ce qui touche un <b>hard_deny</b>. Rien ne passe au-dessus, ni le classifieur, ni même ta demande.</p>
   </section>
   <section class="sec" id="regles">
     <p class="kick">Le bon réglage</p>
     <h2>Quoi mettre où</h2>
-    <div class="tblwrap"><table class="tbl"><thead><tr><th>Tu écris ça dans...</th><th>Ce que Claude fait</th><th>Exemple</th></tr></thead><tbody><tr><td><b class='m'>deny</b></td><td>Il ne le fait jamais, aucune exception</td><td>Supprimer des données, sortir ton code du projet</td></tr><tr><td><b class='m'>ask</b></td><td>Il te demande avant</td><td>Publier, installer une dépendance, dépenser</td></tr><tr><td><b>rien (le reste)</b></td><td>Il le fait seul, en autonomie</td><td>Lire, écrire, tester, corriger ton code</td></tr></tbody></table></div>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>La liste</th><th>Ce que Claude fait</th><th>Exemple</th></tr></thead><tbody><tr><td><b class='m'>hard_deny</b></td><td>Il ne le fait jamais, aucune exception</td><td>Supprimer des données, sortir ton code du projet</td></tr><tr><td><b class='m'>soft_deny</b></td><td>Il évite, sauf si tu le demandes clairement</td><td>Publier, installer une dépendance, dépenser</td></tr><tr><td><b>allow (le reste)</b></td><td>Il le fait seul, en autonomie</td><td>Lire, écrire, tester, corriger ton code</td></tr></tbody></table></div>
   </section>
   <section class="sec" id="erreurs">
     <p class="kick">Les erreurs à éviter</p>
