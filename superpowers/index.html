@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Superpowers : ton agent IA travaille comme un dev senior | Serge IA Hustle</title>
+<meta name="description" content="Superpowers, le plugin gratuit et open source qui fait cadrer, planifier et tester ton agent de code avant qu'il ecrive une ligne. Installation et methode.">
+<link rel="stylesheet" href="../assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+.sec{margin:44px 0 0}
+.sec .kick{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2{font-family:var(--display);font-size:clamp(23px,6vw,31px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:0}
+.p{color:var(--muted);font-size:16.5px;line-height:1.64;margin:14px 0}
+.p b,.p strong{color:var(--text);font-weight:600}
+.cap{color:var(--muted);font-size:13.5px;text-align:center;margin:10px 0 0;opacity:.9}
+
+/* terminal window */
+.term{background:#0a0d14;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);margin:18px 0}
+.term .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#11151e;border-bottom:1px solid var(--border)}
+.term .tbar i{width:11px;height:11px;border-radius:50%;display:block}
+.term .tbar .r{background:#ff5f56}.term .tbar .y{background:#ffbd2e}.term .tbar .g{background:#27c93f}
+.term .tbar .name{margin-left:8px;font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.term pre{padding:16px;font-size:13px;line-height:1.75;color:#e8e8ea;background:transparent}
+.term .u{color:var(--accent)}
+.term .c{color:#7ee787}
+.term .o{color:#9c988f}
+.term .hl{color:#f5f2e9}
+
+/* artboard canvas mock */
+.canvas{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0 0}
+.board{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;box-shadow:var(--shadow-sm);aspect-ratio:9/15;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.board.pick{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent),var(--shadow-sm)}
+.board .tag{position:absolute;top:7px;left:7px;font-size:8.5px;font-weight:800;letter-spacing:.06em;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+.board.pick .tag{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.board .bl{background:var(--surface-3);border-radius:5px;flex:0 0 auto}
+.board .b-hero{height:30%;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 40%,var(--surface-3)),var(--surface-3));margin-top:16px}
+.board .b-t{height:9px;width:78%}
+.board .b-t.s{width:56%}
+.board .b-btn{height:16px;width:64%;background:var(--accent);border-radius:6px;margin-top:auto}
+.board.pick .b-btn{background:var(--accent)}
+
+/* before / after */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0}
+.col{border:1px solid var(--border);border-radius:14px;padding:16px 16px 18px;background:var(--surface)}
+.col.bad{background:color-mix(in srgb,#ff5f56 6%,var(--surface))}
+.col.good{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+.col h4{font-family:var(--display);font-size:14px;font-weight:800;letter-spacing:.02em;margin:0 0 12px;text-transform:uppercase}
+.col.bad h4{color:#ff8079}.col.good h4{color:var(--accent)}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.col li{font-size:14.5px;line-height:1.45;color:var(--muted);padding-left:22px;position:relative}
+.col li::before{position:absolute;left:0;top:0;font-weight:800}
+.col.bad li::before{content:"✕";color:#ff8079}
+.col.good li::before{content:"✓";color:var(--accent)}
+.col.good li{color:var(--text)}
+
+/* flow walkthrough */
+.flow{display:flex;flex-direction:column;gap:12px;margin:20px 0 0;position:relative}
+.fstep{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow-sm)}
+.fstep .msg{display:flex;gap:11px;align-items:flex-start}
+.fstep .who{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:var(--surface-2);border:1px solid var(--border);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;display:grid;place-items:center}
+.fstep .txt{font-size:15px;line-height:1.5;color:var(--text);padding-top:3px}
+.fstep .txt em{color:var(--muted);font-style:normal}
+.fstep .out{margin:11px 0 0 41px;font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.fstep .out b{color:var(--accent);font-weight:800;flex:0 0 auto}
+
+/* tips */
+.tips{display:flex;flex-direction:column;gap:13px;margin:20px 0 0;padding:0;list-style:none}
+.tips li{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5;color:var(--muted)}
+.tips li b{color:var(--text);font-weight:600}
+
+/* callout / teaser */
+.callout{margin:22px 0 0;padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));font-size:15.5px;line-height:1.55}
+.callout b{color:var(--text)}
+.install-note{margin:22px 0 0;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:15px;line-height:1.55;opacity:.92}
+
+/* centrage des titres */
+.lead{text-align:center}
+.lead .eyebrow{margin-left:auto;margin-right:auto}
+.lead .lede{max-width:47ch;margin-left:auto;margin-right:auto}
+.sec>.kick,.sec>h2{text-align:center}
+
+/* sommaire */
+.toc{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:18px 20px;margin:6px 0 8px;box-shadow:var(--shadow-sm)}
+.toc .tt{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.toc ol{margin:0;padding:0;list-style:none;counter-reset:t;display:flex;flex-direction:column;gap:9px}
+.toc li{counter-increment:t}
+.toc a{display:flex;gap:11px;align-items:baseline;text-decoration:none;color:var(--text);font-size:15.5px;line-height:1.35}
+.toc a::before{content:counter(t);color:var(--accent);font-family:var(--display);font-weight:800;font-size:13px;flex:0 0 auto}
+.toc a:hover{color:var(--accent)}
+
+/* fenetre navigateur (capture reelle) */
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin:18px 0 0;background:var(--surface)}
+.frame .fbar{display:flex;align-items:center;gap:7px;padding:10px 13px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.frame .fbar i{width:10px;height:10px;border-radius:50%;display:block}
+.frame .fbar .r{background:#ff5f56}.frame .fbar .y{background:#ffbd2e}.frame .fbar .g{background:#27c93f}
+.frame .fbar .url{margin-left:8px;flex:1;min-width:0;background:var(--ground);border:1px solid var(--border);border-radius:7px;font-size:11.5px;color:var(--muted);padding:5px 11px;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.frame img{display:block;width:100%;height:auto}
+
+/* bande gain de temps */
+.roi{display:flex;align-items:stretch;gap:0;margin:16px 0 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.roi .cell{flex:1;padding:16px 14px;text-align:center;background:var(--surface)}
+.roi .cell.after{background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.roi .cell .big{font-family:var(--display);font-weight:800;font-size:clamp(22px,6vw,30px);line-height:1;letter-spacing:-.02em;display:block}
+.roi .cell.after .big{color:var(--accent)}
+.roi .cell .lab{font-size:12px;color:var(--muted);margin-top:6px;display:block;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.roi .arrow{flex:0 0 auto;display:grid;place-items:center;padding:0 4px;color:var(--accent);font-size:20px;background:var(--surface)}
+@media (max-width:520px){.compare{grid-template-columns:1fr}}
+
+/* ===================== CHARTE REELS / CARROUSELS (override) ===================== */
+:root{
+  --ground:#1c1c1e; --surface:#242426; --surface-2:#2a2a2c; --surface-3:#323238;
+  --border:#3a3a40; --text:#f1f0ee; --muted:#a7a49d; --accent:#f3e600; --accent-ink:#141405; --coral:#d97757;
+  --display:'Montserrat','Arial Black',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --hand:'Caveat','Segoe Script',cursive;
+}
+body{background:#1c1c1e; background-image:radial-gradient(circle at 50% -8%, #262629, #171719 66%);}
+h1{font-size:clamp(31px,7.4vw,52px); letter-spacing:-.02em; line-height:1.03}
+.lede{font-size:clamp(17px,2.7vw,20.5px); color:#cbc8c2; line-height:1.55}
+.p{font-size:17.5px; color:#c6c3bc; line-height:1.66}
+.p b,.p strong{color:#fff}
+.sec>.kick{font-family:var(--hand); color:var(--coral); font-size:23px; letter-spacing:0; text-transform:none; font-weight:700; margin-bottom:3px}
+.sec>h2{font-size:clamp(24px,5.6vw,33px); color:#fff}
+.cap{font-size:15px}
+.eyebrow .badge{font-family:var(--display)}
+/* CTA centré, façon LMDM */
+.cta-btn{display:flex; width:fit-content; margin:38px auto 10px; font-family:var(--display)}
+.cta-note{text-align:center; margin-left:auto; margin-right:auto; max-width:52ch}
+/* teaser façon LMDM : carte + liseré coral */
+.callout{background:var(--surface); border:1px solid color-mix(in srgb,var(--coral) 55%,var(--border)); border-radius:16px}
+/* rangée de logos d'outils */
+.logos{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:24px 0 2px}
+.logos .lg{display:inline-flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:9px 16px; box-shadow:var(--shadow-sm)}
+.logos .lg img{width:26px; height:26px; display:block}
+.logos .lg b{font-family:var(--display); font-weight:800; font-size:16px; color:#fff}
+.logos .plus{color:var(--muted); font-family:var(--display); font-weight:800}
+/* Montserrat sur les titres de composants */
+.community h2,.join-btn,.subbtn,.roi .big,.board .tag,.frame,.toc a{font-family:inherit}
+.community h2{font-family:var(--display)}
+
+.tblwrap{overflow-x:auto;margin:18px 0 0}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;border:1px solid var(--border);border-radius:12px;overflow:hidden;min-width:520px}
+.tbl th,.tbl td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45}
+.tbl th{background:var(--surface-2);font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tbl td b,.tbl td .m{color:var(--text);font-weight:600}
+.tbl td .m{color:var(--accent);font-weight:700}
+.tbl tr:last-child td{border-bottom:0}
+.out{margin:16px 0 0;padding:15px 17px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--border));border-radius:12px;background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+.out .ol{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 9px}
+.out ul{margin:0;padding-left:18px}.out li{color:var(--text);font-size:14.5px;margin:5px 0;line-height:1.45}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0 0;box-shadow:var(--shadow-sm)}
+.split .code{background:#0a0d14;padding:14px;font-family:ui-monospace,Consolas,monospace;font-size:11px;line-height:1.7;color:#9c988f}
+.split .code .c{color:#7ee787}.split .code .t{color:#e8e8ea}
+.split .prev{background:var(--surface-2);padding:16px 14px;display:flex;flex-direction:column;gap:9px;align-items:center;justify-content:center}
+.split .prev .bar{height:8px;border-radius:4px;background:var(--surface-3);width:70%}
+.split .prev .bar.s{width:48%}
+.split .prev .btn{margin-top:4px;padding:8px 16px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:800;font-size:12px;position:relative}
+.split .prev .btn.sel{outline:2px dashed var(--accent);outline-offset:3px}
+@media (max-width:520px){.split{grid-template-columns:1fr}}
+
+/* ===================== CHARTE REELS / CARROUSELS (override) ===================== */
+:root{
+  --ground:#1c1c1e; --surface:#242426; --surface-2:#2a2a2c; --surface-3:#323238;
+  --border:#3a3a40; --text:#f1f0ee; --muted:#a7a49d; --accent:#f3e600; --accent-ink:#141405; --coral:#d97757;
+  --display:'Montserrat','Arial Black',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --hand:'Caveat','Segoe Script',cursive;
+}
+body{background:#1c1c1e; background-image:radial-gradient(circle at 50% -8%, #262629, #171719 66%);}
+h1{font-size:clamp(31px,7.4vw,52px); letter-spacing:-.02em; line-height:1.03}
+.lede{font-size:clamp(17px,2.7vw,20.5px); color:#cbc8c2; line-height:1.55}
+.p{font-size:17.5px; color:#c6c3bc; line-height:1.66}
+.p b,.p strong{color:#fff}
+.sec>.kick{font-family:var(--hand); color:var(--coral); font-size:23px; letter-spacing:0; text-transform:none; font-weight:700; margin-bottom:3px}
+.sec>h2{font-size:clamp(24px,5.6vw,33px); color:#fff}
+.cap{font-size:15px}
+.eyebrow .badge{font-family:var(--display)}
+.cta-btn{display:flex; width:fit-content; margin:38px auto 10px; font-family:var(--display)}
+.cta-note{text-align:center; margin-left:auto; margin-right:auto; max-width:52ch}
+.callout{background:var(--surface); border:1px solid color-mix(in srgb,var(--coral) 55%,var(--border)); border-radius:16px}
+.logos{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:24px 0 2px}
+.logos .lg{display:inline-flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:9px 16px; box-shadow:var(--shadow-sm)}
+.logos .lg img{width:26px; height:26px; display:block}
+.logos .lg b{font-family:var(--display); font-weight:800; font-size:16px; color:#fff}
+.logos .plus{color:var(--muted); font-family:var(--display); font-weight:800}
+.community h2{font-family:var(--display)}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href=".."><span class="dot"></span> Serge IA Hustle</a>
+</header>
+
+<main class="wrap">
+  <a class="back" href="..">&larr; Toutes les ressources</a>
+  <div class="lead">
+    <div class="eyebrow"><span class="badge">PLUGIN GRATUIT</span> Ressource gratuite</div>
+    <h1>Ton assistant IA arrete de bacler : la discipline d'un dev senior, en un plugin gratuit</h1>
+    <p class="lede">Superpowers transforme Claude Code (et les autres agents) en coequipier qui cadre, planifie et teste avant de coder. Gratuit, open source, il se declenche tout seul. Voici comment l'installer et bien t'en servir.</p>
+    <div class="logos"><span class="lg"><img src="../assets/logo-claude.svg" alt="Claude Code"><b>Claude Code</b></span><span class="plus">+</span><span class="lg"><img src="../assets/logo-github.svg" alt="GitHub"><b>GitHub</b></span></div>
+  </div>
+
+  <nav class="toc">
+    <p class="tt">Dans ce guide</p>
+    <ol><li><a href="#concept">Le concept</a></li><li><a href="#valeur">Pourquoi ca change tout</a></li><li><a href="#methode">La methode</a></li><li><a href="#dedans">Ce qu'il y a dedans</a></li><li><a href="#erreurs">Les erreurs a eviter</a></li></ol>
+  </nav>
+
+  <section class="sec" id="concept">
+    <p class="kick">Le concept</p>
+    <h2>Ton agent arrete de foncer, il travaille comme un senior</h2>
+    <p class="p">Superpowers, c'est un plugin gratuit et open source (licence MIT) pour Claude Code et les autres agents de code. Une fois installe, il change la <b>facon de travailler</b> de ton assistant, pas juste ce qu'il sait.</p>    <p class="p">Un debutant fonce et ecrit du code au hasard. Un senior, lui, pose d'abord les bonnes questions, cadre le besoin, ecrit un plan, code par petits pas testes, puis relit son propre travail. Superpowers installe exactement cette discipline dans ton agent, et elle se declenche <b>toute seule</b> des que tu lui demandes de construire quelque chose.</p>    <div class="out"><p class="ol">En clair, ce que Superpowers ajoute</p><ul><li>Il te fait cracher le vrai besoin avant d'ecrire une ligne (phase de cadrage).</li><li>Il te montre la specification par petits morceaux lisibles, tu valides.</li><li>Il transforme la spec validee en plan d'execution clair et teste.</li><li>Il lance des sous-agents qui codent, s'inspectent et se corrigent seuls.</li></ul></div>
+  </section>
+  <section class="sec" id="valeur">
+    <p class="kick">Pourquoi ca change tout</p>
+    <h2>Traduit en temps gagne et en argent economise</h2>
+    <div class="roi"><div class="cell"><span class="big">2 jours</span><span class="lab">a debugger du code bancal</span></div><div class="arrow">&rarr;</div><div class="cell after"><span class="big">1 passe</span><span class="lab">cadree, testee, propre</span></div></div>    <p class="p">Le cout cache d'un agent qui fonce, ce n'est pas le premier jet. C'est tout le temps perdu ensuite a rattraper les cas oublies, les bugs, les fonctions a moitie faites. Un travail cadre des le depart, tu le paies une fois.</p>    <div class="compare"><div class="col bad"><h4>Sans Superpowers</h4><ul><li>L'agent devine ton besoin et part dans la mauvaise direction</li><li>Il ecrit beaucoup de code d'un coup, difficile a relire</li><li>Pas de tests, les bugs sortent chez toi, pas chez lui</li><li>Tu reprends tout a la main</li></ul></div><div class="col good"><h4>Avec Superpowers</h4><ul><li>Il cadre le besoin avec toi avant de coder</li><li>Un plan valide, decoupe en petites taches</li><li>Chaque bout est teste (approche TDD)</li><li>Des sous-agents relisent et corrigent avant livraison</li></ul></div></div>
+  </section>
+  <section class="sec" id="methode">
+    <p class="kick">La methode</p>
+    <h2>Installe-le, puis laisse-le travailler</h2>
+    <p class="p"><b>1.</b> Le plus simple, via le marketplace officiel de Claude, tape dans Claude Code :</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">Claude Code</span></div>
+<pre><span class="u">&gt;</span> <span class="c">/plugin install superpowers@claude-plugins-official</span>
+<span class="o">Superpowers installe. Les competences se declenchent automatiquement.</span></pre></div>    <p class="p"><b>2.</b> Ou via le marketplace de l'auteur (mixe d'autres plugins utiles) :</p>    <div class="term"><div class="tbar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="name">Claude Code</span></div>
+<pre><span class="u">&gt;</span> <span class="c">/plugin marketplace add obra/superpowers-marketplace</span>
+<span class="u">&gt;</span> <span class="c">/plugin install superpowers@superpowers-marketplace</span></pre></div>    <p class="p"><b>3.</b> Ensuite, tu ne changes rien a tes habitudes. Demande-lui de construire, et lance la phase de cadrage avec un message comme celui-ci :</p>    <div class="promptbox"><div class="bar"><span class="label">A copier dans Claude Code</span><button class="copy" type="button">Copier</button></div>
+<pre>Je veux construire [decris ton projet en une phrase]. Avant d'ecrire du code, pose-moi les questions dont tu as besoin pour bien cadrer, puis montre-moi la specification par petits morceaux que je valide un par un.</pre></div>
+  </section>
+  <section class="sec" id="dedans">
+    <p class="kick">Ce qu'il y a dedans</p>
+    <h2>Le cycle complet, du besoin a la livraison</h2>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>Etape</th><th>Ce que fait l'agent</th><th>Ce que tu y gagnes</th></tr></thead><tbody><tr><td>Cadrage</td><td>Il te pose des questions jusqu'a comprendre le vrai besoin</td><td>Fini le hors-sujet</td></tr><tr><td>Specification</td><td>Il te la montre par petits blocs lisibles</td><td>Tu valides sans te noyer</td></tr><tr><td>Plan</td><td>Un plan d'execution clair, teste (TDD), sans superflu</td><td>Du code qui tient</td></tr><tr><td>Execution</td><td>Des sous-agents codent, s'inspectent, se corrigent</td><td>Il avance seul, longtemps</td></tr><tr><td>Relecture</td><td>Revue de code integree avant de te livrer</td><td>Moins de bugs chez toi</td></tr></tbody></table></div>
+  </section>
+  <section class="sec" id="erreurs">
+    <p class="kick">Les erreurs a eviter</p>
+    <h2>Pour en tirer le maximum</h2>
+    <ul class="tips"><li><b>Sauter le cadrage.</b> Si tu reponds trop vite a ses questions, il code sur du flou. Prends deux minutes pour bien repondre, tu les recuperes dix fois.</li><li><b>Vouloir tout d'un coup.</b> Un gros projet en un seul prompt, meme cadre, reste risque. Decoupe en objectifs.</li><li><b>Ne pas relire le plan.</b> C'est le moment le moins cher pour corriger le tir. Lis le plan avant de dire go.</li><li><b>Croire que c'est reserve aux devs.</b> Meme pour un petit site ou un script, la discipline te fait gagner du temps.</li></ul>
+  </section>
+
+
+  <a class="cta-btn" style="margin-top:36px" href="https://github.com/obra/superpowers" target="_blank" rel="noopener">Installer Superpowers (gratuit) &rarr;</a>
+  <p class="cta-note">Gratuit, open source (MIT). Marche avec Claude Code, Codex, Cursor, Gemini CLI et d'autres agents.</p>
+
+  <div class="callout"><b>Bientot sur cette page :</b> mes prompts de cadrage prets a copier. Rejoins la communaute privee en dessous pour les recevoir en premier.</div>
+
+  <div class="foot">
+    <div class="community">
+      <h2>Rejoins ma communauté privée</h2>
+      <p>Les nouveaux outils IA, mes astuces et les ressources exclusives, tu les reçois en premier là-bas. C'est gratuit.</p>
+      <a class="join-btn" href="https://chat.whatsapp.com/Kk6006Lr3rt11tQNC0j8oR" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.29-.15-1.71-.84-1.98-.94-.26-.1-.45-.15-.64.15-.19.29-.73.94-.9 1.13-.16.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.03 2.76 1.17 2.95c.15.19 2.02 3.08 4.89 4.32.68.29 1.21.47 1.63.6.68.22 1.3.19 1.79.11.55-.08 1.71-.7 1.95-1.37.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.02 21.5a9.44 9.44 0 0 1-4.81-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.42 9.42 0 0 1-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.68 2.78a9.38 9.38 0 0 1 2.77 6.67c-.01 5.2-4.24 8.85-9.46 8.85zM20.4 3.6A11.36 11.36 0 0 0 12.02.1C5.76.1.66 5.2.66 11.46c0 2.01.53 3.98 1.53 5.72L.5 23.5l6.46-1.69a11.34 11.34 0 0 0 5.06 1.29h.01c6.26 0 11.36-5.1 11.36-11.36 0-3.04-1.18-5.89-3.33-8.04z"/></svg>
+        Rejoindre la communauté
+      </a>
+    </div>
+    <p class="socials-label">Suis-moi sur mes réseaux</p>
+    <div class="socials">
+      <a class="soc" href="https://www.facebook.com/sergebossouia" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+      <a class="soc" href="https://www.instagram.com/sergeiahustle/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.81-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.81-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.81.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.12A5.88 5.88 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a>
+      <a class="soc" href="https://www.tiktok.com/@sergeiahustle" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.9a2.6 2.6 0 0 1-2.6 2.5 2.6 2.6 0 0 1-2.6-2.6 2.6 2.6 0 0 1 3.4-2.48V7.6a5.86 5.86 0 0 0-.8-.05A5.87 5.87 0 0 0 4.5 18.9a5.87 5.87 0 0 0 9.99-4.14V8.9a7.5 7.5 0 0 0 4.36 1.4V7.1a4.28 4.28 0 0 1-2.25-1.28z"/></svg></a>
+    </div>
+    <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
+  </div>
+</main>
+
+<div class="toast" id="toast">Copié</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.promptbox').querySelector('pre');
+    var txt = pre.innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.classList.add('done'); btn.textContent = 'Copié';
+      var t = document.getElementById('toast'); t.classList.add('show');
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = 'Copier'; t.classList.remove('show'); }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
