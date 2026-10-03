@@ -267,3 +267,20 @@ pre {
   --shadow:0 26px 64px -30px rgba(0,0,0,.8); --shadow-sm:0 10px 26px -16px rgba(0,0,0,.7);
 }
 body{ background:#1c1c1e; background-image:radial-gradient(circle at 50% -6%, #262629, #171719 66%); }
+
+/* Bloc ebook (accueil + guides) */
+.ebook-promo {
+  display: flex; align-items: center; gap: 18px; text-align: left;
+  background: linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface) 86%, #000));
+  border: 1.5px solid color-mix(in srgb, var(--accent) 60%, var(--border));
+  border-radius: var(--radius); padding: 18px 18px 18px 16px; margin: 6px 0 30px;
+  box-shadow: var(--shadow-sm); text-decoration: none; color: var(--text);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.ebook-promo:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.ebook-promo img { width: 84px; height: auto; flex: 0 0 auto; border-radius: 3px 6px 6px 3px; box-shadow: 0 12px 22px -12px rgba(0,0,0,.6); transform: rotate(-3deg); }
+.ebook-promo .ep-k { display: inline-block; background: var(--accent); color: var(--accent-ink); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; }
+.ebook-promo h3 { font-family: var(--display); font-size: 19px; line-height: 1.2; margin: 8px 0 6px; font-weight: 800; letter-spacing: -.01em; }
+.ebook-promo p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.ebook-promo .ep-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-weight: 700; font-size: 14.5px; color: var(--text); border-bottom: 2px solid var(--accent); }
+@media (max-width: 380px) { .ebook-promo img { width: 70px; } .ebook-promo h3 { font-size: 17px; } }
