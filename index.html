@@ -3,239 +3,365 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Serge IA Hustle · Ressources gratuites</title>
-<meta name="description" content="Toutes les ressources gratuites de Serge IA Hustle : prompts, outils et plugins IA pour gagner ton argent.">
-<link rel="stylesheet" href="assets/style.css">
+<title>Serge IA Hustle · L'IA qui te fait gagner de l'argent</title>
+<meta name="description" content="Les guides gratuits de Serge IA Hustle : les outils IA testés et expliqués pas à pas pour gagner du temps et de l'argent, sans coder.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Serge IA Hustle · L'IA qui te fait gagner de l'argent">
+<meta property="og:description" content="24 guides gratuits, testés et expliqués pas à pas. Sans coder.">
+<meta property="og:url" content="https://serge-ia-hustle.vercel.app/">
+<meta name="theme-color" content="#f6f4ee">
+<link rel="icon" href="assets/avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.className+=' js';</script>
+<style>
+:root{
+  --paper:#f6f4ee; --paper2:#efeadf; --card:#fff;
+  --ink:#1b1b1d; --muted:#615d54; --soft:#8b8578;
+  --yellow:#f3e600; --yellow-ink:#141400; --coral:#cf5f34; --green:#1f9d57; --wa:#25d366;
+  --line:#e7e1d4; --night:#18191d; --night2:#222328; --nightline:#34353c; --nightmuted:#a9a59c;
+  --shadow:0 24px 48px -28px rgba(70,58,30,.32); --shadow-sm:0 12px 26px -18px rgba(70,58,30,.30);
+  --display:'Montserrat','Arial Black',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --hand:'Caveat','Segoe Script',cursive;
+  --w:1080px;
+  --c1:#cf5f34; --c2:#1f9d57; --c3:#6d5ae6; --c4:#d99a00;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--yellow);color:var(--yellow-ink)}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);font-weight:900;letter-spacing:-.02em;margin:0;text-wrap:balance}
+p{margin:0}
+.mk{background:var(--yellow);color:var(--yellow-ink);padding:0 .14em;border-radius:.08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.co{color:var(--coral)}
+.hand{font-family:var(--hand);font-weight:700;color:var(--coral);font-size:26px;line-height:1}
+.center{text-align:center}
+.sec-title{font-size:clamp(28px,5.6vw,40px);line-height:1.08}
+.sec-lede{color:var(--muted);max-width:44ch;margin:14px auto 0;font-size:17px}
+
+/* barre du haut */
+.top{position:sticky;top:0;z-index:30;background:rgba(246,244,238,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.sc{border-bottom-color:var(--line)}
+.top .in{max-width:var(--w);margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-family:var(--display);font-weight:900;font-size:19px;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:10px}
+.brand img{width:32px;height:32px;border-radius:50%;border:2px solid var(--yellow);object-fit:cover}
+.brand .d{color:var(--coral)}
+.nav{display:flex;align-items:center;gap:6px}
+.nav a{font-size:14.5px;font-weight:600;padding:8px 12px;border-radius:10px;color:var(--muted)}
+.nav a:hover{color:var(--ink);background:#fff}
+.nav .wa{background:var(--ink);color:#fff}
+.nav .wa:hover{background:#000;color:#fff}
+@media (max-width:640px){.nav .hide-m{display:none}}
+
+/* hero */
+.hero{padding:46px 20px 30px;text-align:center;position:relative}
+.hero .who{position:relative;display:inline-block}
+.hero .av{width:96px;height:96px;border-radius:50%;border:4px solid var(--yellow);box-shadow:0 0 0 7px rgba(243,230,0,.22),var(--shadow-sm);object-fit:cover;margin:0 auto}
+.hero .hi{position:absolute;left:100%;top:4px;white-space:nowrap;transform:rotate(-6deg);margin-left:10px;text-align:left}
+.hero .hi svg{display:block;width:34px;height:24px;margin:2px 0 0 -6px}
+.hero h1{font-size:clamp(36px,8.4vw,64px);line-height:1.02;margin:26px auto 0;max-width:15ch}
+.hero .lede{font-size:clamp(17px,4.4vw,20px);color:var(--muted);max-width:40ch;margin:20px auto 0;line-height:1.5}
+.hero .lede b{color:var(--ink)}
+.ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:56px;padding:14px 24px;border-radius:14px;font-family:var(--display);font-weight:800;font-size:16.5px;cursor:pointer;border:0;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:19px;height:19px}
+.btn.y{background:var(--yellow);color:var(--yellow-ink);box-shadow:0 14px 30px -14px rgba(160,140,0,.75)}
+.btn.o{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:var(--shadow-sm)}
+.btn.wa2{background:var(--wa);color:#05311a;box-shadow:0 14px 30px -14px rgba(20,140,70,.6)}
+.btn.k{background:var(--yellow);color:var(--yellow-ink)}
+@media (max-width:480px){.ctas .btn{width:100%}}
+.proof{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:26px;font-size:14px;color:var(--muted);font-weight:600}
+.proof span{display:inline-flex;align-items:center;gap:7px}
+.proof i{width:20px;height:20px;border-radius:50%;background:var(--green);display:grid;place-items:center}
+.proof i svg{width:11px;height:11px}
+
+/* bande d'outils */
+.tools{margin-top:42px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.tools .lbl{text-align:center;font-family:var(--hand);font-size:22px;color:var(--soft);margin-bottom:12px}
+.track{display:flex;gap:12px;width:max-content;animation:slide 32s linear infinite}
+.tool{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px 9px 10px;font-weight:600;font-size:14.5px;box-shadow:var(--shadow-sm);white-space:nowrap}
+.tool img{width:22px;height:22px}
+.tool .dot{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:11px;color:#fff}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+section{padding:76px 0}
+
+/* par où commencer */
+.path{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px;counter-reset:st}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 22px 22px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease}
+.st:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.st .n{width:44px;height:44px;border-radius:13px;background:var(--yellow);font-family:var(--display);font-weight:900;font-size:19px;display:grid;place-items:center}
+.st h3{font-size:20px;line-height:1.2;margin-top:16px}
+.st p{color:var(--muted);font-size:15px;margin-top:8px;line-height:1.5;flex:1}
+.st .go{margin-top:16px;font-weight:700;font-size:14.5px;display:inline-flex;gap:6px;align-items:center}
+.st .go b{border-bottom:2px solid var(--yellow)}
+.st.last{background:var(--night);border-color:var(--night);color:#fff}
+.st.last p{color:var(--nightmuted)}
+.st.last .go b{border-color:var(--yellow);color:#fff}
+.st .arrow{position:absolute;right:-14px;top:44px;z-index:2;width:28px;height:28px;border-radius:50%;background:var(--paper);display:grid;place-items:center;color:var(--coral)}
+.st .arrow svg{width:16px;height:16px}
+@media (max-width:820px){.path{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}.st .arrow{right:auto;left:50%;top:auto;bottom:-22px;transform:translateX(-50%) rotate(90deg)}}
+
+/* livre */
+.book{background:var(--night);color:#fff;border-radius:34px;margin:0 auto;max-width:var(--w);padding:54px 28px;display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.book::before{content:"";position:absolute;width:420px;height:420px;left:-80px;top:-60px;border-radius:50%;background:radial-gradient(closest-side,rgba(243,230,0,.22),transparent)}
+.book .cv{position:relative;width:240px;margin:0 auto;transform:rotate(-4deg);border-radius:3px 8px 8px 3px;box-shadow:0 40px 60px -26px rgba(0,0,0,.8)}
+.book .hand{color:var(--yellow)}
+.book h2{font-size:clamp(28px,5.4vw,40px);line-height:1.08;margin-top:10px;color:#fff}
+.book p.l{color:var(--nightmuted);margin-top:14px;max-width:46ch}
+.book ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.book li{display:flex;gap:10px;align-items:flex-start;color:#e8e5dd;font-size:15.5px;line-height:1.45}
+.book li i{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--green);display:grid;place-items:center;margin-top:1px}
+.book li i svg{width:11px;height:11px}
+.book .btn{margin-top:26px}
+.book .fine{font-size:13.5px;color:var(--nightmuted);margin-top:12px}
+@media (max-width:820px){.book{grid-template-columns:1fr;text-align:center;padding:44px 22px;border-radius:28px;gap:30px;margin:0 16px}.book .cv{width:190px}.book p.l{margin-left:auto;margin-right:auto}.book ul{text-align:left;max-width:420px;margin-left:auto;margin-right:auto}}
+
+/* bibliothèque */
+.tools-bar{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:32px}
+.search{position:relative;width:100%;max-width:520px}
+.search input{width:100%;font:inherit;font-size:16px;padding:15px 18px 15px 48px;border-radius:14px;border:1.5px solid var(--line);background:#fff;color:var(--ink);box-shadow:var(--shadow-sm);outline:none;transition:border-color .15s}
+.search input:focus{border-color:var(--ink)}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--soft)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
+.chip .c{width:9px;height:9px;border-radius:50%}
+.chip small{font-size:12px;color:var(--soft);font-weight:700}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.on small{color:#bdbab2}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+.g{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 20px 18px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.g:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#d7cfbd}
+.g .cat{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--soft)}
+.g .cat i{width:8px;height:8px;border-radius:50%}
+.g h3{font-size:18.5px;line-height:1.25;margin-top:10px;font-weight:800}
+.g p{color:var(--muted);font-size:14.5px;line-height:1.5;margin-top:7px;flex:1}
+.g .go{margin-top:14px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+.g .go svg{width:15px;height:15px;transition:transform .15s}
+.g:hover .go svg{transform:translateX(3px)}
+.g .new{position:absolute;top:16px;right:16px;background:var(--yellow);color:var(--yellow-ink);font-family:var(--display);font-weight:800;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+.empty{display:none;text-align:center;color:var(--muted);margin-top:26px}
+.c-1{background:var(--c1)} .c-2{background:var(--c2)} .c-3{background:var(--c3)} .c-4{background:var(--c4)}
+
+/* communauté */
+.comm{max-width:var(--w);margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:44px 28px;display:grid;grid-template-columns:1fr 340px;gap:36px;align-items:center}
+.comm h2{font-size:clamp(26px,5vw,36px);line-height:1.1;margin-top:8px}
+.comm p.l{color:var(--muted);margin-top:12px;max-width:44ch}
+.comm .btn{margin-top:22px}
+.chat{background:#efe7dc;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.chat .b{background:#fff;border-radius:4px 14px 14px 14px;padding:10px 12px;font-size:14px;line-height:1.4;max-width:92%;box-shadow:0 1px 1px rgba(0,0,0,.06)}
+.chat .b b{display:block;font-size:12px;color:var(--coral);margin-bottom:2px}
+.chat .b.me{align-self:flex-end;background:#d9fdd3;border-radius:14px 4px 14px 14px}
+.chat .t{font-size:11px;color:#8a8578;text-align:right;margin-top:2px}
+@media (max-width:820px){.comm{grid-template-columns:1fr;text-align:center;margin:0 16px;padding:36px 20px}.comm p.l{margin-left:auto;margin-right:auto}.chat{text-align:left;max-width:360px;margin:0 auto}}
+
+footer{padding:60px 0 50px;text-align:center;color:var(--muted);font-size:14px}
+footer .soc{display:flex;justify-content:center;gap:10px;margin:18px 0}
+footer .soc a{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+footer .soc svg{width:19px;height:19px}
+
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+@media (max-width:600px){.hero .hi{position:static;display:block;margin:14px 0 0;transform:rotate(-3deg);text-align:center;font-size:24px}.hero .hi svg{display:none}}
+.more{display:none;margin-top:22px}
+.lim .g.x{display:none}
+.lim + .empty + .more{display:inline-flex}
+.btn{white-space:nowrap}
+</style>
 </head>
 <body>
-<header class="site-header">
-  <a class="brand" href="."><span class="dot"></span> Serge IA Hustle</a>
+
+<header class="top" id="top">
+  <div class="in">
+    <a class="brand" href="./"><img src="assets/avatar.jpg" alt="" width="32" height="32"><span>SERGE<span class="d">·</span>IA</span></a>
+    <nav class="nav">
+      <a href="#guides">Guides</a>
+      <a class="hide-m" href="ebook/">Le livre</a>
+      <a class="wa" href="https://chat.whatsapp.com/Kk6006Lr3rt11tQNC0j8oR" target="_blank" rel="noopener">Communauté</a>
+    </nav>
+  </div>
 </header>
 
-<main class="wrap">
-  <div class="hero">
-    <div class="eyebrow">Ressources gratuites</div>
-    <h1>Tes outils <span class="mark">IA</span> pour gagner ton argent</h1>
-    <p class="lede">Toutes les ressources que je partage dans mes vidéos, réunies au même endroit. <strong>Gratuites, prêtes à utiliser.</strong></p>
+<main>
+  <!-- HERO -->
+  <div class="hero wrap">
+    <div class="who">
+      <img class="av" src="assets/avatar.jpg" alt="Serge" width="96" height="96">
+      <div class="hi hand">salut, moi c'est Serge<svg viewBox="0 0 34 24" fill="none" stroke="#cf5f34" stroke-width="2.2" stroke-linecap="round"><path d="M30 3C22 6 12 10 6 18"/><path d="M4 11l2 7 7-2"/></svg></div>
+    </div>
+    <h1>L'IA qui te fait <span class="mk">gagner de l'argent</span>, sans coder.</h1>
+    <p class="lede">Je teste les outils d'IA chaque semaine et je ne garde que ceux qui font <b>gagner du temps ou de l'argent</b>. Ici, tu trouves tout, expliqué pas à pas, gratuitement.</p>
+    <div class="ctas">
+      <a class="btn y" href="#guides">Voir les guides gratuits
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg></a>
+      <a class="btn o" href="#commencer">Par où commencer ?</a>
+    </div>
+    <div class="proof">
+      <span><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>24 guides gratuits</span>
+      <span><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>Testés avant d'être partagés</span>
+      <span><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>Zéro ligne de code</span>
+    </div>
   </div>
 
-  <a class="ebook-promo" href="ebook/">
-      <img src="ebook/img/couverture.webp" alt="Couverture du guide Lance ton business avec Claude Code" width="720" height="1021" loading="lazy">
-      <span><span class="ep-k">Nouveau</span><h3>Lance ton business avec Claude Code</h3><p>Le guide pas à pas : ton offre, ton produit, ta page de vente et tes premiers paiements en Mobile Money, sans coder.</p><span class="ep-go">Découvrir le guide &rarr;</span></span>
-    </a>
-
-  <div class="cards">
-    <a class="card" href="agent-skills/">
-      <span class="k">AGENT SKILLS</span>
-      <span class="body">
-        <h3>Ton IA code comme un dev senior</h3>
-        <p>Le pack gratuit qui fait cadrer, tester et relire ton assistant avant de livrer.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="markitdown/">
-      <span class="k">MARKITDOWN</span>
-      <span class="body">
-        <h3>Économise tes tokens et ton argent</h3>
-        <p>L'outil gratuit de Microsoft qui transforme tes documents en texte léger que l'IA lit d'un coup.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="5-skills/">
-      <span class="k">5 SKILLS</span>
-      <span class="body">
-        <h3>Une équipe IA complète, gratuite</h3>
-        <p>Cinq packs gratuits qui jouent tes rôles : gestion de projet, documents, design et contenu.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="ecc/">
-      <span class="k">ECC</span>
-      <span class="body">
-        <h3>Sécurise et donne une mémoire à ton IA</h3>
-        <p>Le pack gratuit qui alerte avant le danger et garde ton projet d'une session à l'autre.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="superpowers/">
-      <span class="k">SUPERPOWERS</span>
-      <span class="body">
-        <h3>Ton agent IA comme un dev senior</h3>
-        <p>Le plugin gratuit qui fait cadrer, planifier et tester ton agent de code avant qu'il écrive une ligne.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="opendesign/">
-      <span class="k">OPENDESIGN</span>
-      <span class="body">
-        <h3>Le studio de design IA gratuit</h3>
-        <p>L'alternative libre à Claude Design : sites, présentations, images et vidéos à ta charte, sur ton ordi.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="omniroute/">
-      <span class="k">OMNIROUTE</span>
-      <span class="body">
-        <h3>Une passerelle vers 1200+ modèles IA</h3>
-        <p>150+ modèles gratuits derrière un seul point d'accès, avec bascule automatique quand un quota se vide.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="produit-digital/">
-      <span class="k">PRODUIT DIGITAL</span>
-      <span class="body">
-        <h3>Transforme ton savoir en produit à vendre</h3>
-        <p>La méthode pour emballer ton savoir en produit digital et le vendre en continu, avec l'IA à chaque étape.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="humain/">
-      <span class="k">HUMAIN</span>
-      <span class="body">
-        <h3>Le prompt HUMAIN</h3>
-        <p>Le prompt qui rend tes textes IA totalement humains, dans ChatGPT ou Claude.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="visuel/">
-      <span class="k">VISUEL</span>
-      <span class="body">
-        <h3>L'outil VISUEL</h3>
-        <p>L'intelligence artificielle gratuite pour créer des visuels de vente de niveau pro.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="api/">
-      <span class="k">API</span>
-      <span class="body">
-        <h3>Les clés API IA gratuites</h3>
-        <p>Le dépôt qui donne accès gratuitement aux meilleurs modèles, à brancher dans Claude Code.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="plugin/">
-      <span class="k">PLUGIN</span>
-      <span class="body">
-        <h3>4 plugins pour Claude Code</h3>
-        <p>Quatre plugins gratuits qui réduisent ta consommation de tokens et font durer ton abonnement.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="skills/">
-      <span class="k">SKILLS</span>
-      <span class="body">
-        <h3>4 skills pour Claude Code</h3>
-        <p>Quatre skills gratuits et officiels qui donnent à Claude Code un vrai design, du code propre et le test de tes apps.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="voix/">
-      <span class="k">VOIX</span>
-      <span class="body">
-        <h3>La voix off IA gratuite</h3>
-        <p>L'IA qui transforme ton texte en voix off réaliste, sans micro ni visage. 600+ voix, 100+ langues, gratuit.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="design/">
-      <span class="k">DESIGN</span>
-      <span class="body">
-        <h3>4 skills design pour Claude</h3>
-        <p>Quatre skills qui donnent à Claude un vrai goût de designer et des yeux pour voir ce qu'il code.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="memoire/">
-      <span class="k">MEMOIRE</span>
-      <span class="body">
-        <h3>La mémoire infinie de Claude</h3>
-        <p>Le guide pour donner à Claude une mémoire permanente et gratuite avec NotebookLM. Fini de repartir de zéro.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="design-claude/">
-      <span class="k">/DESIGN</span>
-      <span class="body">
-        <h3>Créer un design avec /design</h3>
-        <p>Le guide pour transformer une idée ou une capture en vraies maquettes éditables, directement dans Claude Code.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="mode-auto/">
-      <span class="k">AUTO</span>
-      <span class="body">
-        <h3>Le mode Auto (règles en français)</h3>
-        <p>Le guide pour laisser Claude bosser seul en gardant le contrôle, avec tes propres règles écrites en français.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="modifier-site/">
-      <span class="k">POINTER</span>
-      <span class="body">
-        <h3>Modifier ton site en pointant</h3>
-        <p>Le guide pour changer un élément de ton site en cliquant dessus, sans avoir à le décrire avec des mots.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="auto-continue/">
-      <span class="k">CONTINU</span>
-      <span class="body">
-        <h3>Reprendre après ta limite</h3>
-        <p>Le guide pour que Claude reprenne ton travail tout seul, pile où il s'était arrêté, quand ta limite se recharge.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="mots-magiques/">
-      <span class="k">MAGIC</span>
-      <span class="body">
-        <h3>Les mots magiques pour Claude</h3>
-        <p>La liste des mots qui forcent Claude à utiliser de vrais modèles de décision et à mieux réfléchir pour toi.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="creer-site-ia/">
-      <span class="k">BUILD</span>
-      <span class="body">
-        <h3>Créer un vrai site avec l'IA</h3>
-        <p>La procédure en 3 étapes pour créer de vrais sites et applications avec l'IA, comme les pros.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="systeme-claude/">
-      <span class="k">SYSTEME</span>
-      <span class="body">
-        <h3>Un Claude qui s'améliore seul</h3>
-        <p>Les 6 compétences pour transformer Claude en un assistant qui devient meilleur au fil du temps.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
-    <a class="card" href="veille-web/">
-      <span class="k">WEB</span>
-      <span class="body">
-        <h3>Claude accède à tout internet</h3>
-        <p>Le skill gratuit qui donne à Claude accès au web, même LinkedIn et YouTube, pour ta veille et tes leads.</p>
-      </span>
-      <span class="arrow">&rarr;</span>
-    </a>
+  <div class="tools" aria-hidden="true">
+    <div class="lbl">les outils que je décortique</div>
+    <div class="track" id="track">
+      <span class="tool"><img src="assets/logo-claude.svg" alt="">Claude Code</span>
+      <span class="tool"><img src="assets/logo-openai.svg" alt="">ChatGPT</span>
+      <span class="tool"><img src="assets/logo-gemini.svg" alt="">Gemini</span>
+      <span class="tool"><img src="assets/logo-github.svg" alt="">GitHub</span>
+      <span class="tool"><img src="assets/logo-vercel.svg" alt="">Vercel</span>
+      <span class="tool"><img src="assets/logo-deepseek.svg" alt="">DeepSeek</span>
+      <span class="tool"><span class="dot" style="background:#2b5cff">M</span>MarkItDown</span>
+      <span class="tool"><span class="dot" style="background:#cf5f34">S</span>Superpowers</span>
+      <span class="tool"><span class="dot" style="background:#1f9d57">N</span>NotebookLM</span>
+    </div>
   </div>
 
-  <div class="foot">
-    <div class="community">
-      <h2>Rejoins ma communauté privée</h2>
-      <p>Les nouveaux outils IA, mes astuces et les ressources exclusives, tu les reçois en premier là-bas. C'est gratuit.</p>
-      <a class="join-btn" href="https://chat.whatsapp.com/Kk6006Lr3rt11tQNC0j8oR" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.29-.15-1.71-.84-1.98-.94-.26-.1-.45-.15-.64.15-.19.29-.73.94-.9 1.13-.16.19-.33.21-.62.07-.29-.15-1.22-.45-2.33-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.03 2.76 1.17 2.95c.15.19 2.02 3.08 4.89 4.32.68.29 1.21.47 1.63.6.68.22 1.3.19 1.79.11.55-.08 1.71-.7 1.95-1.37.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12.02 21.5a9.44 9.44 0 0 1-4.81-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.42 9.42 0 0 1-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.68 2.78a9.38 9.38 0 0 1 2.77 6.67c-.01 5.2-4.24 8.85-9.46 8.85zM20.4 3.6A11.36 11.36 0 0 0 12.02.1C5.76.1.66 5.2.66 11.46c0 2.01.53 3.98 1.53 5.72L.5 23.5l6.46-1.69a11.34 11.34 0 0 0 5.06 1.29h.01c6.26 0 11.36-5.1 11.36-11.36 0-3.04-1.18-5.89-3.33-8.04z"/></svg>
-        Rejoindre la communauté
-      </a>
+  <!-- PAR OU COMMENCER -->
+  <section id="commencer">
+    <div class="wrap center">
+      <p class="hand rv">nouveau ici ?</p>
+      <h2 class="sec-title rv" style="margin-top:8px">Par où <span class="mk">commencer</span> ?</h2>
+      <p class="sec-lede rv">Trois étapes, dans l'ordre. Chacune te fait gagner quelque chose dès aujourd'hui.</p>
+      <div class="path" style="text-align:left">
+        <a class="st rv" href="creer-site-ia/"><span class="n">1</span><h3>Prends en main Claude Code</h3><p>La procédure en 3 étapes pour créer un vrai site ou une application, en décrivant simplement ce que tu veux.</p><span class="go"><b>Créer un vrai site avec l'IA</b>&rarr;</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="st rv" href="markitdown/"><span class="n">2</span><h3>Fais durer ton abonnement</h3><p>L'outil gratuit qui allège tes documents avant de les donner à l'IA. Moins de limite gaspillée, de meilleures réponses.</p><span class="go"><b>Économiser tes tokens</b>&rarr;</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="st last rv" href="ebook/"><span class="n">3</span><h3>Lance ton business</h3><p>Ton offre, ton produit, ta page de vente et tes premiers paiements en Mobile Money. Le guide complet, pas à pas.</p><span class="go"><b>Découvrir le livre</b>&rarr;</span></a>
+      </div>
     </div>
-    <p class="socials-label">Suis-moi sur mes réseaux</p>
-    <div class="socials">
-      <a class="soc" href="https://www.facebook.com/sergebossouia" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
-      <a class="soc" href="https://www.instagram.com/sergeiahustle/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.81-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.81-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.81.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.12A5.88 5.88 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a>
-      <a class="soc" href="https://www.tiktok.com/@sergeiahustle" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.9a2.6 2.6 0 0 1-2.6 2.5 2.6 2.6 0 0 1-2.6-2.6 2.6 2.6 0 0 1 3.4-2.48V7.6a5.86 5.86 0 0 0-.8-.05A5.87 5.87 0 0 0 4.5 18.9a5.87 5.87 0 0 0 9.99-4.14V8.9a7.5 7.5 0 0 0 4.36 1.4V7.1a4.28 4.28 0 0 1-2.25-1.28z"/></svg></a>
+  </section>
+
+  <!-- LIVRE -->
+  <div class="book rv">
+    <img class="cv" src="ebook/img/couverture.webp" alt="Couverture du livre Lance ton business avec Claude Code" width="720" height="1021" loading="lazy">
+    <div>
+      <p class="hand">le guide complet</p>
+      <h2>Lance ton business avec Claude Code, <span class="mk">sans coder</span>.</h2>
+      <p class="l">De l'idée à ta première vente en Mobile Money. On suit Freddy étape par étape, avec toutes les phrases exactes à donner à Claude.</p>
+      <ul>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>Le livre : 9 chapitres, lisible sur téléphone</li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>3 skills Claude Code prêts à installer</li>
+        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></i>Les prompts, le modèle de page de vente et le plan de 30 jours</li>
+      </ul>
+      <a class="btn k" href="ebook/">Découvrir le guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      <p class="fine">Paiement Mobile Money ou carte. Livré par email dans la minute.</p>
     </div>
-    <p class="fine">Serge IA Hustle · l'IA & le digital pour gagner ton argent.</p>
+  </div>
+
+  <!-- BIBLIOTHEQUE -->
+  <section id="guides">
+    <div class="wrap center">
+      <p class="hand rv">gratuit, pour toujours</p>
+      <h2 class="sec-title rv" style="margin-top:8px">Tous les <span class="mk">guides</span></h2>
+      <p class="sec-lede rv">Chaque guide va avec une de mes vidéos : l'outil, à quoi il te sert, et comment l'installer pas à pas.</p>
+      <div class="tools-bar rv">
+        <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Cherche un outil ou un besoin (ex. tokens, site, voix)" autocomplete="off" aria-label="Rechercher un guide"></label>
+        <div class="chips" id="chips">
+          <button class="chip on" data-f="all" type="button">Tous <small>24</small></button>
+          <button class="chip" data-f="1" type="button"><span class="c c-1"></span>Démarrer <small>5</small></button>
+          <button class="chip" data-f="2" type="button"><span class="c c-2"></span>Économiser <small>6</small></button>
+          <button class="chip" data-f="3" type="button"><span class="c c-3"></span>Équiper ton IA <small>8</small></button>
+          <button class="chip" data-f="4" type="button"><span class="c c-4"></span>Créer et vendre <small>5</small></button>
+        </div>
+      </div>
+      <div class="grid lim" id="grid" style="text-align:left">
+        <a class="g" data-c="3" href="agent-skills/"><span class="new">Nouveau</span><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>Ton IA code comme un dev senior</h3><p>Le pack gratuit qui fait cadrer, tester et relire ton assistant avant de livrer.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="2" href="markitdown/"><span class="new">Nouveau</span><span class="cat"><i class="c-2"></i>Économiser</span><h3>Économise tes tokens et ton argent</h3><p>L'outil gratuit de Microsoft qui transforme tes documents en texte léger que l'IA lit d'un coup.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="5-skills/"><span class="new">Nouveau</span><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>Une équipe IA complète, gratuite</h3><p>Cinq packs gratuits qui jouent tes rôles : gestion de projet, documents, design et contenu.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="ecc/"><span class="new">Nouveau</span><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>Sécurise et donne une mémoire à ton IA</h3><p>Le pack gratuit qui alerte avant le danger et garde ton projet d'une session à l'autre.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="superpowers/"><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>Ton agent IA cadre avant de coder</h3><p>Le plugin gratuit qui fait cadrer, planifier et tester ton agent de code avant qu'il écrive une ligne.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="4" href="opendesign/"><span class="cat"><i class="c-4"></i>Créer et vendre</span><h3>Le studio de design IA gratuit</h3><p>L'alternative libre à Claude Design : sites, présentations, images et vidéos à ta charte, sur ton ordi.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="2" href="omniroute/"><span class="cat"><i class="c-2"></i>Économiser</span><h3>Une passerelle vers 1200+ modèles IA</h3><p>150+ modèles gratuits derrière un seul point d'accès, avec bascule automatique quand un quota se vide.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="4" href="produit-digital/"><span class="cat"><i class="c-4"></i>Créer et vendre</span><h3>Transforme ton savoir en produit à vendre</h3><p>La méthode pour emballer ton savoir en produit digital et le vendre en continu, avec l'IA à chaque étape.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="4" href="humain/"><span class="cat"><i class="c-4"></i>Créer et vendre</span><h3>Le prompt HUMAIN</h3><p>Le prompt qui rend tes textes IA totalement humains, dans ChatGPT ou Claude.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="4" href="visuel/"><span class="cat"><i class="c-4"></i>Créer et vendre</span><h3>Des visuels de vente de niveau pro</h3><p>L'intelligence artificielle gratuite pour créer des visuels de vente de niveau pro.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="2" href="api/"><span class="cat"><i class="c-2"></i>Économiser</span><h3>Les clés API IA gratuites</h3><p>Le dépôt qui donne accès gratuitement aux meilleurs modèles, à brancher dans Claude Code.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="2" href="plugin/"><span class="cat"><i class="c-2"></i>Économiser</span><h3>4 plugins pour Claude Code</h3><p>Quatre plugins gratuits qui réduisent ta consommation de tokens et font durer ton abonnement.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="skills/"><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>4 skills officiels pour Claude Code</h3><p>Quatre skills gratuits qui donnent à Claude Code un vrai design, du code propre et le test de tes apps.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="4" href="voix/"><span class="cat"><i class="c-4"></i>Créer et vendre</span><h3>La voix off IA gratuite</h3><p>L'IA qui transforme ton texte en voix off réaliste, sans micro ni visage. 600+ voix, 100+ langues.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="design/"><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>4 skills design pour Claude</h3><p>Quatre skills qui donnent à Claude un vrai goût de designer et des yeux pour voir ce qu'il code.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="2" href="memoire/"><span class="cat"><i class="c-2"></i>Économiser</span><h3>La mémoire infinie de Claude</h3><p>Donne à Claude une mémoire permanente et gratuite avec NotebookLM. Fini de repartir de zéro.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="1" href="design-claude/"><span class="cat"><i class="c-1"></i>Démarrer</span><h3>Créer un design avec /design</h3><p>Transforme une idée ou une capture en vraies maquettes éditables, directement dans Claude Code.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="1" href="mode-auto/"><span class="cat"><i class="c-1"></i>Démarrer</span><h3>Le mode Auto, avec tes règles</h3><p>Laisse Claude bosser seul en gardant le contrôle, avec tes propres règles écrites en français.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="1" href="modifier-site/"><span class="cat"><i class="c-1"></i>Démarrer</span><h3>Modifier ton site en pointant</h3><p>Change un élément de ton site en cliquant dessus, sans avoir à le décrire avec des mots.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="2" href="auto-continue/"><span class="cat"><i class="c-2"></i>Économiser</span><h3>Reprendre après ta limite</h3><p>Claude reprend ton travail tout seul, pile où il s'était arrêté, quand ta limite se recharge.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="1" href="mots-magiques/"><span class="cat"><i class="c-1"></i>Démarrer</span><h3>Les mots magiques pour Claude</h3><p>Les mots qui forcent Claude à utiliser de vrais modèles de décision et à mieux réfléchir pour toi.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="1" href="creer-site-ia/"><span class="cat"><i class="c-1"></i>Démarrer</span><h3>Créer un vrai site avec l'IA</h3><p>La procédure en 3 étapes pour créer de vrais sites et applications avec l'IA, comme les pros.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="systeme-claude/"><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>Un Claude qui s'améliore seul</h3><p>Les 6 compétences pour transformer Claude en un assistant qui devient meilleur au fil du temps.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <a class="g" data-c="3" href="veille-web/"><span class="cat"><i class="c-3"></i>Équiper ton IA</span><h3>Claude accède à tout internet</h3><p>Le skill gratuit qui donne à Claude accès au web, même LinkedIn et YouTube, pour ta veille et tes clients.</p><span class="go">Lire le guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+      <p class="empty" id="empty">Aucun guide pour cette recherche. Essaie un autre mot, ou demande-le dans la communauté.</p>
+      <button class="btn o more" id="more" type="button">Voir les 24 guides<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg></button>
+    </div>
+  </section>
+
+  <!-- COMMUNAUTE -->
+  <div class="comm rv">
+    <div>
+      <p class="hand">rejoins-nous</p>
+      <h2>La communauté privée, <span class="mk">gratuite</span>.</h2>
+      <p class="l">Les nouveaux outils, mes astuces et les ressources exclusives arrivent là-bas en premier. Et tu peux poser tes questions directement.</p>
+      <a class="btn wa2" href="https://chat.whatsapp.com/Kk6006Lr3rt11tQNC0j8oR" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.5-.3z"/></svg>
+        Rejoindre la communauté</a>
+    </div>
+    <div class="chat" aria-hidden="true">
+      <div class="b"><b>Serge IA Hustle</b>Nouveau guide en ligne : l'outil gratuit qui allège tes documents avant de les donner à l'IA 👇<div class="t">09:02</div></div>
+      <div class="b me">Je viens de l'installer, ça marche 🔥<div class="t">09:14</div></div>
+      <div class="b"><b>Serge IA Hustle</b>Parfait. Demain je partage le réglage qui va avec.<div class="t">09:16</div></div>
+    </div>
   </div>
 </main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="./" style="justify-content:center"><img src="assets/avatar.jpg" alt="" width="32" height="32"><span>SERGE<span class="d">·</span>IA</span></a>
+    <div class="soc">
+      <a href="https://www.tiktok.com/@sergeiahustle" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5z"/></svg></a>
+      <a href="https://www.instagram.com/sergeiahustle/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      <a href="https://www.facebook.com/sergeiahustle" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v7h4v-7h3l.5-4h-3.5V8.8c0-.5.3-.8.5-.8z"/></svg></a>
+    </div>
+    <p>Serge IA Hustle · l'IA et le digital pour gagner ton argent.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // barre du haut
+  var top=document.getElementById('top');
+  addEventListener('scroll',function(){top.classList.toggle('sc',scrollY>8)},{passive:true});
+  // bande d'outils en boucle
+  var tr=document.getElementById('track'); tr.innerHTML+=tr.innerHTML;
+  // filtres + recherche
+  var cards=[].slice.call(document.querySelectorAll('.g')), chips=[].slice.call(document.querySelectorAll('.chip')), q=document.getElementById('q'), empty=document.getElementById('empty'), f='all';
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+  cards.forEach(function(c,i){c._t=norm(c.textContent+' '+c.getAttribute('href'));if(i>=9)c.classList.add('x')});
+  var grid=document.getElementById('grid'), more=document.getElementById('more'), opened=false;
+  more.addEventListener('click',function(){opened=true;grid.classList.remove('lim')});
+  function apply(){
+    var t=norm(q.value.trim()), n=0; grid.classList.toggle('lim',!opened&&f==='all'&&!t);
+    cards.forEach(function(c){var ok=(f==='all'||c.dataset.c===f)&&(!t||c._t.indexOf(t)>-1);c.style.display=ok?'':'none';if(ok)n++});
+    empty.style.display=n?'none':'block';
+  }
+  chips.forEach(function(ch){ch.addEventListener('click',function(){chips.forEach(function(x){x.classList.remove('on')});ch.classList.add('on');f=ch.dataset.f;apply()})});
+  q.addEventListener('input',apply);
+  // apparitions
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  } else document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')});
+})();
+</script>
 </body>
 </html>
