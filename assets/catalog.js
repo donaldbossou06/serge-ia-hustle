@@ -10,6 +10,11 @@ window.SERGE = {
     4: { n: "Créer et vendre", col: "#d99a00" }
   },
   guides: [
+    { s: "gstack", k: "gstack", c: 1, t: "Passe ton idée devant Y Combinator", d: "La config Claude Code du patron de Y Combinator : six questions qui passent ton idée de business au crible." },
+    { s: "skills-marketing", k: "5 skills vente", c: 4, t: "Ta petite agence marketing dans Claude", d: "Cinq skills gratuits : marketeur, relecteur, designer, monteur vidéo et architecte d'agents." },
+    { s: "ainnotations", k: "AInnotations", c: 3, t: "Corrige ton site en écrivant dessus", d: "Tu entoures, tu surlignes, tu notes sur ta page. Claude Code applique toutes tes corrections d'un coup." },
+    { s: "freelance-ia", k: "Freelance", c: 4, t: "Ton premier business sans un franc", d: "Des missions freelance livrées avec Claude : où les trouver, le bon message et le bon portfolio." },
+    { s: "meta-ads", k: "Meta Ads", c: 4, t: "Branche Claude sur tes pubs Facebook", d: "Le connecteur officiel Meta : Claude lit ton compte pub et te dit quelle pub coûte trop cher." },
     { s: "agent-skills", k: "Agent Skills", c: 3, t: "Ton IA code comme un dev senior", d: "Le pack gratuit qui fait cadrer, tester et relire ton assistant avant de livrer." },
     { s: "markitdown", k: "MarkItDown", c: 2, t: "Économise tes tokens et ton argent", d: "L'outil gratuit de Microsoft qui transforme tes documents en texte léger que l'IA lit d'un coup." },
     { s: "5-skills", k: "5 skills", c: 3, t: "Une équipe IA complète, gratuite", d: "Cinq packs gratuits qui jouent tes rôles : gestion de projet, documents, design et contenu." },
