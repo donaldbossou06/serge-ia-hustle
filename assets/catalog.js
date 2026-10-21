@@ -10,6 +10,8 @@ window.SERGE = {
     4: { n: "Créer et vendre", col: "#d99a00" }
   },
   guides: [
+    { s: "devis-pro", k: "Devis pro", c: 4, t: "Le devis en 3 options qui fait signer", d: "Le prompt qui transforme la demande d'un client en devis clair : simple, complète, premium." },
+    { s: "claude-slides", k: "Claude Slides", c: 4, t: "Vends des présentations faites avec Claude", d: "Slides arrive sur toutes les offres, même gratuite : une présentation propre en une heure, à vendre." },
     { s: "gstack", k: "gstack", c: 1, t: "Passe ton idée devant Y Combinator", d: "La config Claude Code du patron de Y Combinator : six questions qui passent ton idée de business au crible." },
     { s: "skills-marketing", k: "5 skills vente", c: 4, t: "Ta petite agence marketing dans Claude", d: "Cinq skills gratuits : marketeur, relecteur, designer, monteur vidéo et architecte d'agents." },
     { s: "ainnotations", k: "AInnotations", c: 3, t: "Corrige ton site en écrivant dessus", d: "Tu entoures, tu surlignes, tu notes sur ta page. Claude Code applique toutes tes corrections d'un coup." },
