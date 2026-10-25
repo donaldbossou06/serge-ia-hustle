@@ -10,6 +10,10 @@ window.SERGE = {
     4: { n: "Créer et vendre", col: "#d99a00" }
   },
   guides: [
+    { s: "fixer-son-prix", k: "Ton prix", c: 4, t: "Calcule enfin ton vrai prix", d: "Temps réel, frais, valeur pour le client : trois prompts pour arrêter de facturer trop bas." },
+    { s: "client-difficile", k: "Objections", c: 4, t: "Entraîne-toi contre un client difficile", d: "Claude joue le client qui dit « c'est trop cher », puis note tes réponses." },
+    { s: "catalogue-whatsapp", k: "Catalogue WhatsApp", c: 4, t: "Remplis des catalogues WhatsApp Business", d: "Les prompts pour écrire les fiches produits et vendre ce service aux commerçants." },
+    { s: "claude-seo", k: "Claude SEO", c: 3, t: "L'audit SEO gratuit à vendre", d: "Le plugin open source qui audite un site en 15 minutes et rend un plan d'action classé." },
     { s: "devis-pro", k: "Devis pro", c: 4, t: "Le devis en 3 options qui fait signer", d: "Le prompt qui transforme la demande d'un client en devis clair : simple, complète, premium." },
     { s: "claude-slides", k: "Claude Slides", c: 4, t: "Vends des présentations faites avec Claude", d: "Slides arrive sur toutes les offres, même gratuite : une présentation propre en une heure, à vendre." },
     { s: "gstack", k: "gstack", c: 1, t: "Passe ton idée devant Y Combinator", d: "La config Claude Code du patron de Y Combinator : six questions qui passent ton idée de business au crible." },
