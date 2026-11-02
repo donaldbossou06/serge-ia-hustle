@@ -10,6 +10,10 @@ window.SERGE = {
     4: { n: "Créer et vendre", col: "#d99a00" }
   },
   guides: [
+    { s: "fiche-google", k: "Fiche Google", c: 4, t: "Vends le suivi des fiches Google", d: "Description, catégories, réponses aux avis : remets à niveau la fiche Google des commerces et vends le suivi." },
+    { s: "cv-a-vendre", k: "CV", c: 4, t: "Le CV adapté à chaque offre", d: "Claude adapte un CV à chaque annonce et écrit la lettre qui va avec, sans rien inventer. Un service à vendre." },
+    { s: "affiches-claude-design", k: "Claude Design", c: 4, t: "Vends des affiches aux commerces", d: "Claude Design, même gratuit : affiches, menus et flyers dessinés en parlant, et le forfait mensuel à proposer." },
+    { s: "hyperframes", k: "HyperFrames", c: 4, t: "Claude Code fait tes vidéos animées", d: "L'outil open source de HeyGen qui transforme des scènes écrites par Claude en vraies vidéos MP4, à vendre." },
     { s: "fixer-son-prix", k: "Ton prix", c: 4, t: "Calcule enfin ton vrai prix", d: "Temps réel, frais, valeur pour le client : trois prompts pour arrêter de facturer trop bas." },
     { s: "client-difficile", k: "Objections", c: 4, t: "Entraîne-toi contre un client difficile", d: "Claude joue le client qui dit « c'est trop cher », puis note tes réponses." },
     { s: "catalogue-whatsapp", k: "Catalogue WhatsApp", c: 4, t: "Remplis des catalogues WhatsApp Business", d: "Les prompts pour écrire les fiches produits et vendre ce service aux commerçants." },
